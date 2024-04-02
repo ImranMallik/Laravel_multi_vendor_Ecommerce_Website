@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
@@ -47,3 +48,6 @@ Route::resource('brand', BrandController::class);
 
 // Vendor Profile
 Route::resource('vendor-profile', AdminVendorProfileController::class);
+
+// Products route--
+Route::resource('products', ProductController::class);
