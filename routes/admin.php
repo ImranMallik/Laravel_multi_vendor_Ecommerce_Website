@@ -50,4 +50,8 @@ Route::resource('brand', BrandController::class);
 Route::resource('vendor-profile', AdminVendorProfileController::class);
 
 // Products route--
+// -Sub category Ajax
+Route::get('product/get-subcategories',[ProductController::class,'getSubCategories'])->name('product.get-subcategories');
+// child category Ajax--
+Route::get('products/get-childcategories',[ProductController::class,'getChildCategories'])->name('product.child-categories');
 Route::resource('products', ProductController::class);

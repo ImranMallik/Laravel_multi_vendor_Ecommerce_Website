@@ -11,6 +11,7 @@
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href=" {{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
 
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/jqvmap/dist/jqvmap.min.css') }}">
@@ -90,6 +91,8 @@
 
     {{-- Toster Script --}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {{-- From ar datr ar jonno --}}
+    <script src=" {{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
 
     <!-- Page Specific JS File -->
