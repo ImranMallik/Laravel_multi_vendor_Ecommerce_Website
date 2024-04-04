@@ -53,17 +53,15 @@ class ProductController extends Controller
             'qty' => ['required'],
             'short_description' => ['required', 'max:600'],
             'long_description' => ['required'],
-            'is_best' => ['required'],
-            'is_top' => ['required'],
-            'is_featured' => ['required'],
-            'seo_title' =>['nullable','max:200'],
-            'seo_description' => ['nullable','max:250'],
+            'product_type' => ['required'],
+            'seo_title' => ['nullable', 'max:200'],
+            'seo_description' => ['nullable', 'max:250'],
             'status' => ['required']
         ]);
 
         $Product = new Product();
         // Image Upload----use Traits
-        $iamgePath = $this->uploadImage($request,'image','uploads');
+        $iamgePath = $this->uploadImage($request, 'image', 'uploads');
         $Product->thumb_image = $iamgePath;
         $Product->name = $request->name;
         $Product->slug = Str::slug($request->name);
@@ -81,13 +79,11 @@ class ProductController extends Controller
         $Product->offer_price = $request->offer_price;
         $Product->offer_start_date = $request->offer_start;
         $Product->offer_end_date = $request->offer_end;
-        $Product->is_top = $request->is_top;
-        $Product->is_best = $request->is_best;
-        $Product->is_featured = $request->is_featured;
+        $Product->product_type = $request->product_type;
         $Product->status = $request->status;
         $Product->is_approved = 1;
-        $Product->seo_title=$request->seo_title;
-        $Product->seo_description = $request->seo_description; 
+        $Product->seo_title = $request->seo_title;
+        $Product->seo_description = $request->seo_description;
 
         $Product->save();
 
@@ -108,7 +104,13 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        $subcategory = SubCategory::where('category_id', $product->category_id)->get();
+        $childCategory = ChildCategory::where('sub_category_id', $product->sub_category_id)->get();
+        $brands = Brand::all();
+
+        return view('Admin.product.edit', compact('product', 'categories', 'brands', 'subcategory', 'childCategory'));
     }
 
     /**

@@ -117,39 +117,18 @@
                                     <label for="status">Long Description</label>
                                     <textarea name="long_description" class="form-control summernote"></textarea>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="status">Is Top</label>
-                                            <select id="status" name="is_top" class="form-control form-control-lg">
-                                                <option value="">Select</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="status">Is Best</label>
-                                            <select id="status" name="is_best" class="form-control form-control-lg">
-                                                <option value="">Select</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="status">Is Featured</label>
-                                            <select id="status" name="is_featured"
-                                                class="form-control form-control-lg">
-                                                <option value="">Select</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
-                                            </select>
-                                        </div>
-                                    </div>
+
+                                <div class="form-group">
+                                    <label for="status">Product Type</label>
+                                    <select id="status" name="product_type" class="form-control form-control-lg">
+                                        <option value="">Select</option>
+                                        <option value="new_arrival">New Arrival</option>
+                                        <option value="featured_product">Featured</option>
+                                        <option value="top_product">Top Product</option>
+                                        <option value="best_product">Best Product</option>
+                                    </select>
                                 </div>
+
 
                                 <div class="form-group">
                                     <label for="status">Seo Title</label>
