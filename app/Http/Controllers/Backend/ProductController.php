@@ -118,7 +118,51 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'image' => ['nullable', 'image', 'max:3000'],
+            'name' => ['required', 'max:200'],
+            'category' => ['required'],
+            'brand' => ['required'],
+            'price' => ['required'],
+            'qty' => ['required'],
+            'short_description' => ['required', 'max:600'],
+            'long_description' => ['required'],
+            'product_type' => ['required'],
+            'seo_title' => ['nullable', 'max:200'],
+            'seo_description' => ['nullable', 'max:250'],
+            'status' => ['required']
+        ]);
+
+        $Product = Product::findOrFail($id);
+        // Image Upload----use Traits
+        $iamgePath = $this->updateImage($request, 'image', 'uploads', $Product->thumb_image);
+        $Product->thumb_image = empty(!$iamgePath) ? $iamgePath : $Product->thumb_image;
+        $Product->name = $request->name;
+        $Product->slug = Str::slug($request->name);
+        $Product->vendor_id = Auth::user()->vendorprofile->id;
+        $Product->category_id = $request->category;
+        $Product->sub_category_id = $request->sub_category;
+        $Product->child_category_id = $request->child_category;
+        $Product->brand_id = $request->brand;
+        $Product->qty = $request->qty;
+        $Product->short_description = $request->short_description;
+        $Product->long_description = $request->long_description;
+        $Product->video_link = $request->video_link;
+        $Product->sku = $request->sku;
+        $Product->price = $request->price;
+        $Product->offer_price = $request->offer_price;
+        $Product->offer_start_date = $request->offer_start;
+        $Product->offer_end_date = $request->offer_end;
+        $Product->product_type = $request->product_type;
+        $Product->status = $request->status;
+        $Product->is_approved = 1;
+        $Product->seo_title = $request->seo_title;
+        $Product->seo_description = $request->seo_description;
+
+        $Product->save();
+
+        toastr('Updated Successfully!', 'success');
+        return redirect()->route('admin.products.index');
     }
 
     /**

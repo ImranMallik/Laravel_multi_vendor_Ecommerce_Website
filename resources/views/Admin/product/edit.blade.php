@@ -17,7 +17,8 @@
 
                         </div>
                         <div class="card-body">
-                            <form action="#" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.products.update', $product->id) }}" method="post"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
@@ -160,14 +161,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Seo Description</label>
-                                    <textarea name="seo_description" class="form-control">{{ $product->seo_description }}</textarea>
+                                    <textarea name="seo_description" class="form-control">{!! $product->seo_description !!}</textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="status">Status</label>
                                     <select id="status" name="status" class="form-control form-control-lg">
-                                        <option {{ $product->status == 1 ? 'selected' : '' }} value="1">Active</option>
-                                        <option {{ $product->status == 0 ? 'selected' : '' }} value="0">Inactive</option>
+                                        <option {{ $product->status == 1 ? 'selected' : '' }} value="1">Active
+                                        </option>
+                                        <option {{ $product->status == 0 ? 'selected' : '' }} value="0">Inactive
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -190,6 +193,7 @@
         // Get Main Category Ajax---
         $(document).ready(function() {
             $('body').on('change', '.main-category', function() {
+                $('.child-category').html(` <option value="">Select</option>`)
                 // alert('Hello');
                 let id = $(this).val();
                 // console.log(id);

@@ -7,11 +7,13 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\ProductImageGalleryController;
+use App\Http\Controllers\Backend\ProductVariantController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\VendorProfileController;
-use App\Models\SubCategory;
+
 
 // Admin Route 
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -50,8 +52,12 @@ Route::resource('brand', BrandController::class);
 Route::resource('vendor-profile', AdminVendorProfileController::class);
 
 // Products route--
-// -Sub category Ajax
-Route::get('product/get-subcategories',[ProductController::class,'getSubCategories'])->name('product.get-subcategories');
-// child category Ajax--
-Route::get('products/get-childcategories',[ProductController::class,'getChildCategories'])->name('product.child-categories');
+//1 -Sub category Ajax
+Route::get('product/get-subcategories', [ProductController::class, 'getSubCategories'])->name('product.get-subcategories');
+//2 child category Ajax--
+Route::get('products/get-childcategories', [ProductController::class, 'getChildCategories'])->name('product.child-categories');
 Route::resource('products', ProductController::class);
+// Product Image Multipal IMG
+Route::resource('products-image-gallery', ProductImageGalleryController::class);
+// Product Variant route
+Route::resource('products-variant', ProductVariantController::class);
