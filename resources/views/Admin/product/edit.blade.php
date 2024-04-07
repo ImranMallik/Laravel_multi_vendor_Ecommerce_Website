@@ -54,7 +54,7 @@
                                             <label for="status">Sub Category</label>
                                             <select id="status" name="sub_category"
                                                 class="form-control form-control-lg sub-category">
-                                                <option>Select</option>
+                                                <option value="">Select</option>
                                                 @foreach ($subcategory as $value)
                                                     <option {{ $value->id == $product->sub_category_id ? 'selected' : '' }}
                                                         value="{{ $value->id }}">{{ $value->name }}</option>
@@ -67,7 +67,7 @@
                                             <label for="status">Child Category</label>
                                             <select id="status" name="child_category"
                                                 class="form-control form-control-lg child-category">
-                                                <option>Select</option>
+                                                <option value="">Select</option>
                                                 @foreach ($childCategory as $value)
                                                     <option
                                                         {{ $value->id == $product->child_category_id ? 'selected' : '' }}
@@ -174,7 +174,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
                                 </div>
                             </form>
                         </div>

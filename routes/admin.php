@@ -57,6 +57,8 @@ Route::resource('vendor-profile', AdminVendorProfileController::class);
 Route::get('product/get-subcategories', [ProductController::class, 'getSubCategories'])->name('product.get-subcategories');
 //2 child category Ajax--
 Route::get('products/get-childcategories', [ProductController::class, 'getChildCategories'])->name('product.child-categories');
+// Product Change Status
+Route::put('products/change-status', [ProductController::class, 'changeStatus'])->name('product.change-status');
 Route::resource('products', ProductController::class);
 // Product Image Multipal IMG
 Route::resource('products-image-gallery', ProductImageGalleryController::class);
@@ -71,5 +73,7 @@ Route::resource('products-variant', ProductVariantController::class);
 Route::get('product-variant-item/{productId}/{variantId}',[ProductVariantItemController::class,'index'])->name('product-variant-item.index');
 Route::get('product-variant-item/create/{productId}/{variantId}',[ProductVariantItemController::class,'create'])->name('product-variant-item.create');
 Route::post('product-variant-item',[ProductVariantItemController::class,'store'])->name('product-variant-item.store');
-Route::get('product-variant-item/{id}/edit',[ProductVariantItemController::class,'edit'])->name('product-variant-item.edit');
-Route::delete('product-variant-item/{id}/destroy',[ProductVariantItemController::class,'destroy'])->name('product-variant-item.destroy');
+Route::get('product-variant-item-edit/{variantItemId}',[ProductVariantItemController::class,'edit'])->name('product-variant-item.edit');
+Route::put('product-variant-item-update/{variantItemId}',[ProductVariantItemController::class,'update'])->name('product-variant-item.update');
+Route::delete('product-variant-item-destroy/{variantItemId}',[ProductVariantItemController::class,'destroy'])->name('product-variant-item.destroy');
+Route::put('product-variant-item-status',[ProductVariantItemController::class,'changeStatus'])->name('product-variant-item.change-status');

@@ -6,9 +6,7 @@
             <h1>Product Variant Item</h1>
 
         </div>
-        <div class="mb-3">
-            <a href="{{ route('admin.products-variant.index') }}" class="btn btn-primary">Back</a>
-        </div>
+     
 
         <div class="section-body">
 
@@ -46,7 +44,7 @@
                                 <div class="form-group">
                                     <label for="status">Is Default</label>
                                     <select id="status" name="is_default" class="form-control form-control-lg">
-                                        <option>Select</option>
+                                        <option value="">Select</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
