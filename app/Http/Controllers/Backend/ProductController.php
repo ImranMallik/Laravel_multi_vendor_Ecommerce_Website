@@ -104,6 +104,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        // dd($request->all());
         $product = Product::findOrFail($id);
         $categories = Category::all();
         $subcategory = SubCategory::where('category_id', $product->category_id)->get();

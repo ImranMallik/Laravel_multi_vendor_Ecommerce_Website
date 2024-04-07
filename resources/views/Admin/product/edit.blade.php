@@ -192,7 +192,7 @@
     <script>
         // Get Main Category Ajax---
         $(document).ready(function() {
-            $('body').on('change', '.main-category', function() {
+            $('body').on('change', '.main-category', function(e) {
                 $('.child-category').html(` <option value="">Select</option>`)
                 // alert('Hello');
                 let id = $(this).val();
