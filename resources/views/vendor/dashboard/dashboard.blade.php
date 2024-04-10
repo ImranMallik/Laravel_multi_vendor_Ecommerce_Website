@@ -1,4 +1,4 @@
-@extends('vendor.dashboard.layouts.master')
+@extends('vendor.layouts.master')
 
 @section('content')
     <section id="wsus__dashboard">
