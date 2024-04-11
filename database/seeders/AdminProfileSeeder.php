@@ -18,6 +18,7 @@ class AdminProfileSeeder extends Seeder
         $user = User::where('email', 'admin@gmail.com')->first();
 
         $vendor->banner = 'uploads/1234.jpg';
+        $vendor->shope_name = 'Admin shop';
         $vendor->phone = '8116334';
         $vendor->email = 'admin@gmail.com';
         $vendor->address = 'Osmanpur';

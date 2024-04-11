@@ -37,6 +37,7 @@ class AdminVendorProfileController extends Controller
         // dd($request->all());
         $request->validate([
             'banner' => ['nullable', 'image', 'max:3000'],
+            'shop_name' =>['required','max:200'],
             'phone' => ['required', 'max:50'],
             'email' => ['required', 'email', 'max:200'],
             'address' => ['required'],
@@ -50,6 +51,7 @@ class AdminVendorProfileController extends Controller
         $profileImg = $this->uploadImage($request, 'banner', 'uploads', $vendor->banner);
         $vendor->banner = empty(!$profileImg) ? $profileImg : $vendor->banner;
         $vendor->phone = $request->phone;
+        $vendor->shope_name = $request->shop_name;
         $vendor->email = $request->email;
         $vendor->address = $request->address;
         $vendor->description = $request->description;

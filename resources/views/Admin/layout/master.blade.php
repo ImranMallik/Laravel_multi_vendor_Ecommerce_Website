@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/jqvmap/dist/jqvmap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons-wind.min.css') }}">
+    {{-- Text area summerNote css --}}
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css') }}">
     {{-- Bootstrap icon piker --}}
     <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}">
@@ -84,6 +85,7 @@
     <script src="{{ asset('backend/assets/modules/chart.min.js') }}"></script>
     <script src="{{ asset('backend/assets/modules/jqvmap/dist/jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('backend/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+    {{-- Summer Note Js --}}
     <script src="{{ asset('backend/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
     {{-- Bootstrap icon picker --}}

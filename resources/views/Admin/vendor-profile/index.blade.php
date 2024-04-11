@@ -34,6 +34,10 @@
                                     <input type="text" name="phone" class="form-control" value="{{ $profile->phone }}">
                                 </div>
                                 <div class="form-group">
+                                    <label>Shop Name</label>
+                                    <input type="text" name="shop_name" class="form-control" value="{{ $profile->shope_name }}">
+                                </div>
+                                <div class="form-group">
                                     <label>Email</label>
                                     <input type="text" name="email" class="form-control" value="{{ $profile->email }}">
                                 </div>
@@ -56,12 +60,12 @@
                                     <input type="text" name="tw_link" class="form-control"
                                         value="{{ $profile->tw_link }}">
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group ">
                                     <label for="status">Instagram</label>
                                     <input type="text" name="insta_link" class="form-control"
                                         value="{{ $profile->insta_link }}">
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group ">
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>
