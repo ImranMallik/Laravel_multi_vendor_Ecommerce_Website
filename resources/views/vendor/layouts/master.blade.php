@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/slick.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery.nice-number.min.css') }} ">
-
-
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery.calendar.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/add_row_custon.css') }} ">
     <link rel="stylesheet" href="{{ asset('frontend/css/mobile_menu.css') }} ">
@@ -36,7 +34,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     {{-- Jquery DataTable --}}
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css">
-    <link rel="stylesheet" href=" {{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
+    <link rel="stylesheet" href=" {{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
@@ -116,9 +114,9 @@
     <!--classycountdown js-->
     <script src="{{ asset('frontend/js/jquery.classycountdown.js') }} "></script>
 
- 
+
     <!--main/custom js-->
-    
+
     {{-- Toster ar jonno cdn --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{-- Toster Script --}}
@@ -127,7 +125,7 @@
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
     <script src="{{ asset('backend/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ asset('backend/assets/modules/moment.min.js') }}"></script>
-    <script src=" {{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <script src=" {{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
 
     {{-- Toster Error --}}
@@ -148,10 +146,10 @@
 
             // Datepicker
             $('.datepicker').daterangepicker({
-              locale: {
-                format: 'YYYY-MM-DD'
-              },
-              singleDatePicker:true
+                locale: {
+                    format: 'YYYY-MM-DD'
+                },
+                singleDatePicker: true
             })
         });
     </script>

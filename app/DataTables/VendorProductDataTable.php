@@ -3,6 +3,8 @@
 namespace App\DataTables;
 
 // use App\Models\VendorProduct;
+
+use App\Models\Product;
 use App\Models\VendorProfile;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -23,14 +25,76 @@ class VendorProductDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'vendorproduct.action')
+            ->addColumn('action', function ($query) {
+                $editBtn = "<a href='" . route('admin.products.edit', $query->id) . "' class='btn btn-primary mx-2'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
+
+                $newBtn = '<div class="dropleft d-inline mx-2">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+            </button>
+            <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -132px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item has-icon" href="' . route('admin.products-image-gallery.index', ['product' => $query->id]) . '"><i class="fas fa-images"></i></i>Image Gallery</a>
+              <a class="dropdown-item has-icon" href="' . route('admin.products-variant.index', ['product' => $query->id]) . '"><i class="fas fa-sitemap"></i>Variants</a>
+             
+          </div>';
+
+                return $editBtn . $deleteBtn . $newBtn;
+            })
+            ->addColumn('image', function ($query) {
+                return $img = "<img width = '70px' src='" . asset($query->thumb_image) . "'></img>";
+            })
+            ->addColumn('product_type', function ($query) {
+                switch ($query->product_type) {
+                    case 'new_arrival':
+                        return '<i class="badge bg-success">New Arrival</i>';
+                        break;
+                    case 'featured_product':
+                        return '<i class="badge bg-warning">Featured Product</i>';
+                        break;
+                    case 'top_product':
+                        return '<i class="badge bg-danger">Top Product</i>';
+                        break;
+                    case 'best_product':
+                        return '<i class="badge bg-info">Best Product</i>';
+                        break;
+
+                    default:
+                        return '<i class="badge badge-dark">None</i>';
+                        break;
+                }
+            })
+            ->addColumn('status', function ($query) {
+                if ($query->status == 1) {
+                    //     $button = '<label class="custom-switch mt-2">
+                    //     <input type="checkbox" checked data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
+                    //     <span class="custom-switch-indicator"></span>
+                    //   </label>';
+
+                    $button = '<div class="form-check form-switch">
+                     <input class="form-check-input change-status" checked data-id="' . $query->id . '" type="checkbox" id="flexSwitchCheckDefault">
+                     </div>';
+                } else {
+
+            //         $button = '<label class="custom-switch mt-2">
+            //     <input type="checkbox" data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
+            //     <span class="custom-switch-indicator"></span>
+            //   </label>';
+
+              $button = '<div class="form-check form-switch">
+              <input class="form-check-input change-status"  data-id="' . $query->id . '" type="checkbox" id="flexSwitchCheckDefault">
+              </div>';
+                }
+                return $button;
+            })
+            ->rawColumns(['image', 'product_type', 'status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(VendorProfile $model): QueryBuilder
+    public function query(Product $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -41,20 +105,20 @@ class VendorProductDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('vendorproduct-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('vendorproduct-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -63,15 +127,17 @@ class VendorProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('image')->width(150),
+            Column::make('name'),
+            Column::make('price'),
+            Column::make('product_type')->width(150),
+            Column::make('status'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(250)
+                ->addClass('text-center'),
         ];
     }
 

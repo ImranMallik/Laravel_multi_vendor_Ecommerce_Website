@@ -13,10 +13,7 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href=" {{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
 
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('backend/assets/modules/jqvmap/dist/jqvmap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/modules/weather-icon/css/weather-icons-wind.min.css') }}">
+   
     {{-- Text area summerNote css --}}
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/summernote/summernote-bs4.css') }}">
     {{-- Bootstrap icon piker --}}
