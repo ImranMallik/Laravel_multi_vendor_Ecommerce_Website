@@ -7,6 +7,7 @@ namespace App\DataTables;
 use App\Models\Product;
 use App\Models\VendorProfile;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -26,18 +27,29 @@ class VendorProductDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.products.edit', $query->id) . "' class='btn btn-primary mx-2'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
+                $editBtn = "<a href='" . route('vendor.products.edit', $query->id) . "' class='btn btn-primary mx-2'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('vendor.products.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
 
-                $newBtn = '<div class="dropleft d-inline mx-2">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-cog"></i>
-            </button>
-            <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -132px, 0px); top: 0px; left: 0px; will-change: transform;">
-              <a class="dropdown-item has-icon" href="' . route('admin.products-image-gallery.index', ['product' => $query->id]) . '"><i class="fas fa-images"></i></i>Image Gallery</a>
-              <a class="dropdown-item has-icon" href="' . route('admin.products-variant.index', ['product' => $query->id]) . '"><i class="fas fa-sitemap"></i>Variants</a>
-             
-          </div>';
+                //         $newBtn = '<div class="dropleft d-inline mx-2">
+                //     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                //     <i class="fas fa-cog"></i>
+                //     </button>
+                //     <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -132px, 0px); top: 0px; left: 0px; will-change: transform;">
+                //       <a class="dropdown-item has-icon" href="' . route('admin.products-image-gallery.index', ['product' => $query->id]) . '"><i class="fas fa-images"></i></i>Image Gallery</a>
+                //       <a class="dropdown-item has-icon" href="' . route('admin.products-variant.index', ['product' => $query->id]) . '"><i class="fas fa-sitemap"></i>Variants</a>
+
+                //   </div>';
+
+                $newBtn = '<div class="btn-group dropstart mx-2">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-cog"></i>
+        </button>
+        <ul class="dropdown-menu">
+        <li><a class="dropdown-item has-icon" href="' . route('vendor.products-image-gallery.index', ['product' => $query->id]) . '"><i class="fas fa-images"></i></i> Image Gallery</a></li>
+        <li><a class="dropdown-item has-icon" href="' . route('vendor.products-variant.index', ['product' => $query->id]) . '"><i class="fas fa-sitemap"></i> Variants</a></li>
+    
+         </ul>
+         </div>';
 
                 return $editBtn . $deleteBtn . $newBtn;
             })
@@ -76,12 +88,12 @@ class VendorProductDataTable extends DataTable
                      </div>';
                 } else {
 
-            //         $button = '<label class="custom-switch mt-2">
-            //     <input type="checkbox" data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
-            //     <span class="custom-switch-indicator"></span>
-            //   </label>';
+                    //         $button = '<label class="custom-switch mt-2">
+                    //     <input type="checkbox" data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
+                    //     <span class="custom-switch-indicator"></span>
+                    //   </label>';
 
-              $button = '<div class="form-check form-switch">
+                    $button = '<div class="form-check form-switch">
               <input class="form-check-input change-status"  data-id="' . $query->id . '" type="checkbox" id="flexSwitchCheckDefault">
               </div>';
                 }
@@ -96,7 +108,7 @@ class VendorProductDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('vendor_id', Auth::user()->vendorprofile->id)->newQuery();
     }
 
     /**

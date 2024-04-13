@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Backend\VendorProductController;
+use App\Http\Controllers\Backend\VendorProductImageGalleryController;
+use App\Http\Controllers\Backend\VendorProductVariantController;
 use App\Http\Controllers\Backend\VendorProfileController;
 use App\Http\Controllers\Backend\VendorShopProfileController;
 
@@ -26,3 +28,9 @@ Route::get('product/get-subcategories', [VendorProductController::class, 'getSub
 Route::get('products/get-childcategories', [VendorProductController::class, 'getChildCategories'])->name('product.child-categories');
 Route::resource('products', VendorProductController::class);
 
+// Vendor product image route 
+
+Route::resource('products-image-gallery', VendorProductImageGalleryController::class);
+
+// Product Variant
+Route::resource('products-variant',VendorProductVariantController::class);

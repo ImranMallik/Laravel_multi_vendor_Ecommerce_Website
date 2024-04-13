@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     {{-- Ajax Csrf --}}
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>General Dashboard &mdash; Stisla</title>
 

@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductImageGalleryDataTable extends DataTable
+class VendorProductImageGalleryDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,17 +22,17 @@ class ProductImageGalleryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action',function($query){
-     
-                $deleteBtn = "<a href='" . route('admin.products-image-gallery.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
+        ->addColumn('action',function($query){
+ 
+            $deleteBtn = "<a href='" . route('vendor.products-image-gallery.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
 
-                return $deleteBtn;
-            })
-            ->addColumn('image',function($query){
-                return $img = "<img width = '200px' src='" . asset($query->image) . "'></img>";
-            })
-            ->rawColumns(['image','action'])
-            ->setRowId('id');
+            return $deleteBtn;
+        })
+        ->addColumn('image',function($query){
+            return $img = "<img class='rounded' width = '200px' src='" . asset($query->image) . "'></img>";
+        })
+        ->rawColumns(['image','action'])
+        ->setRowId('id');
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductImageGalleryDataTable extends DataTable
      */
     public function query(ProductImageGallery $model): QueryBuilder
     {
-        return $model->where('product_id',request()->product)->newQuery();
+        return $model->where('product_id', request()->product)->newQuery();
     }
 
     /**
@@ -49,7 +49,7 @@ class ProductImageGalleryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('productimagegallery-table')
+                    ->setTableId('vendorproductimagegallery-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -87,6 +87,6 @@ class ProductImageGalleryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ProductImageGallery_' . date('YmdHis');
+        return 'VendorProductImageGallery_' . date('YmdHis');
     }
 }
