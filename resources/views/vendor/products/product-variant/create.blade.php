@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
                     <div class="mb-3">
-                        <a href="{{ route('vendor.products.index') }}" class="btn btn-primary">Back</a>
+                        <a href="{{ route('vendor.products-variant.index') }}" class="btn btn-primary">Back</a>
                     </div>
                     <div class="dashboard_content mt-2 mt-md-0">
                         <h3><i class="fab fa-shopify"></i> Product Variant</h3>
