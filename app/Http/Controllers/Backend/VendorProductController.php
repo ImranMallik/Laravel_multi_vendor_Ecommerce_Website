@@ -208,4 +208,12 @@ class VendorProductController extends Controller
 
         return $childCategory;
     }
+
+    public function changeStatus(Request $request){
+        $product = Product::findOrFail($request->id);
+        $product ->status = $request->status == 'true' ? 1 : 0;
+        $product ->save();
+
+        return response(['message' => 'Status has been updated!']);
+    }
 }

@@ -6,6 +6,7 @@ use App\DataTables\VendorProductVariantDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\ProductVariantItem;
 use Illuminate\Http\Request;
 
 class VendorProductVariantController extends Controller
@@ -96,6 +97,20 @@ class VendorProductVariantController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = ProductVariant::findOrFail($id);
+        $productVariantItem = ProductVariantItem::where('product_variant_id',$product->id)->count();
+        if($productVariantItem > 0){
+            return response(['status' => 'error','message'=>'This variant contain variant items in it delete the variant items first for delete this variant!']);
+        }
+        $product->delete();
+        return response(['status' => 'success','message'=>'Deleted Successfully!']);
+    }
+
+    public function changeStatus(Request $request){
+        $product = ProductVariant::findOrFail($request->id);
+        $product->status = $request->status == 'true' ? 1 : 0;
+        $product->save();
+
+        return response(['message' => 'Status has been updated!']);
     }
 }

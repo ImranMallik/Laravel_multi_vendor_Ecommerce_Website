@@ -5,12 +5,19 @@
             @include('vendor.layouts.sidebar')
 
             <div class="row">
+                
                 <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
                     <div class="dashboard_content mt-2 mt-md-0">
-                        <h3><i class="fab fa-shopify"></i> Product Table</h3>
+                        <a href="{{ route('vendor.products-variant.index',['product' => $product->id]) }}" class="btn btn-warning mb-4"><i class="fas fa-arrow-left"></i> Back</a>
+                        <h3><i class="fab fa-shopify"></i> Product Variant Item</h3>
+                        <hr>
+                        <h6>Variant:{{ $variant->name }}</h6>
+                        <hr>
+                        {{-- <h5>Product: {{ $product->name }}</h5> --}}
+                        {{-- <h4>Product:{{ $product->name }}</h4> --}}
                         <div class="create_btn mb-3">
-                            <a href="{{ route('vendor.products.create') }}" class="btn btn-primary"><i
-                                class="fas fa-plus"></i> Create Product</a>
+                                <a href="{{ route('vendor.products-variant.create', ['product' => $product->id]) }}" class="btn btn-primary"><i
+                                        class="fas fa-plus"></i> Create Variant Item</a>
                         </div>
                         <div class="wsus__dashboard_profile">
                             <div class="wsus__dash_pro_area">
@@ -38,7 +45,7 @@
             // console.log(id);
 
             $.ajax({
-                url: "{{ route('vendor.product.change-status') }}",
+                url: "{{ route('vendor.products-variant.change-status') }}",
                 method: 'PUT',
                 data: {
                     status: isChecked,
