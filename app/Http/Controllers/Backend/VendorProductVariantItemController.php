@@ -21,7 +21,8 @@ class VendorProductVariantItemController extends Controller
     public function create(string $productId,string $variantId){
         $productVariant = ProductVariant::findOrFail($variantId);
         $product = Product::findOrFail($productId);
-      return view('Admin.product.product-varient-item.create',compact('productVariant','product'));
+      return view('vendor.products.product-variant-item.create',compact('productVariant','product'));
+      return 'Ok';
     }
 
     public function store(Request $request){
@@ -44,13 +45,13 @@ class VendorProductVariantItemController extends Controller
 
         toastr('Created Successfully!','success');
 
-        return redirect()->route('admin.product-variant-item.index',['productId' => $request->product_id,'variantId' => $request->variant_id]);
+        return redirect()->route('vendor.product-variant-item.index',['productId' => $request->product_id,'variantId' => $request->variant_id]);
     }
 
     public function edit(string $variantItemId){
         // return "Ok";
         $variantItem = ProductVariantItem::findOrFail($variantItemId);
-        return view('Admin.product.product-varient-item.edit',compact('variantItem'));
+        return view('vendor.products.product-variant-item.edit',compact('variantItem'));
     }
 
     public function update(Request $request,string $variantItemId){

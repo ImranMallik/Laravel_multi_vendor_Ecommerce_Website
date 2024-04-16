@@ -16,7 +16,7 @@
                         {{-- <h5>Product: {{ $product->name }}</h5> --}}
                         {{-- <h4>Product:{{ $product->name }}</h4> --}}
                         <div class="create_btn mb-3">
-                                <a href="{{ route('vendor.products-variant.create', ['product' => $product->id]) }}" class="btn btn-primary"><i
+                                <a href="{{ route('vendor.product-variant-item.create', ['productId' => $product->id,'variantId' =>$variant->id]) }}" class="btn btn-primary"><i
                                         class="fas fa-plus"></i> Create Variant Item</a>
                         </div>
                         <div class="wsus__dashboard_profile">
