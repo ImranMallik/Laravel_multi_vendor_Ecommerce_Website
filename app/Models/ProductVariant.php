@@ -9,7 +9,13 @@ class ProductVariant extends Model
 {
     use HasFactory;
 
-    public function ProductVariantItem(){
+    public function ProductVariantItem()
+    {
         return $this->hasMany(ProductVariantItem::class);
+    }
+
+    public function Product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

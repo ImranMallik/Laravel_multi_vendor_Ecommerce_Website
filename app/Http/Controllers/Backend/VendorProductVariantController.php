@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VendorProductVariantController extends Controller
 {
@@ -18,7 +19,11 @@ class VendorProductVariantController extends Controller
     {
         $product = Product::findOrFail($request->product);
 
-        return $dataTable->render('vendor.products.product-variant.index',compact('product'));
+        if ($product->vendor_id !== Auth::user()->vendorprofile->id) {
+            abort(404);
+        }
+
+        return $dataTable->render('vendor.products.product-variant.index', compact('product'));
         // return view('vendor.products.product-variant.index');
     }
 
@@ -36,9 +41,9 @@ class VendorProductVariantController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required','max:200'],
-            'product' => ['required','integer'],
-            'status' =>['required']
+            'name' => ['required', 'max:200'],
+            'product' => ['required', 'integer'],
+            'status' => ['required']
         ]);
 
         $productVariant = new ProductVariant();
@@ -50,7 +55,7 @@ class VendorProductVariantController extends Controller
         $productVariant->save();
 
         toastr('Created Successfully!', 'success');
-        return redirect()->route('vendor.products-variant.index',['product' => $request->product]);
+        return redirect()->route('vendor.products-variant.index', ['product' => $request->product]);
     }
 
     /**
@@ -67,7 +72,11 @@ class VendorProductVariantController extends Controller
     public function edit(string $id)
     {
         $productVariant = ProductVariant::findOrFail($id);
-        return view('vendor.products.product-variant.edit',compact('productVariant'));
+        // check vendor product owner
+        if ($productVariant->Product->vendor_id !== Auth::user()->vendorprofile->id) {
+            abort(404);
+        }
+        return view('vendor.products.product-variant.edit', compact('productVariant'));
     }
 
     /**
@@ -76,11 +85,15 @@ class VendorProductVariantController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required','max:200'],
-            'status' =>['required']
+            'name' => ['required', 'max:200'],
+            'status' => ['required']
         ]);
 
         $productVariant = ProductVariant::findOrFail($id);
+        // check vendor product owner
+        if ($productVariant->Product->vendor_id !== Auth::user()->vendorprofile->id) {
+            abort(404);
+        }
 
         // $productVariant->product_id = $request->product;
         $productVariant->name = $request->name;
@@ -89,7 +102,7 @@ class VendorProductVariantController extends Controller
         $productVariant->save();
 
         toastr('Created Successfully!', 'success');
-        return redirect()->route('vendor.products-variant.index',['product' => $productVariant->product_id]);
+        return redirect()->route('vendor.products-variant.index', ['product' => $productVariant->product_id]);
     }
 
     /**
@@ -98,15 +111,20 @@ class VendorProductVariantController extends Controller
     public function destroy(string $id)
     {
         $product = ProductVariant::findOrFail($id);
-        $productVariantItem = ProductVariantItem::where('product_variant_id',$product->id)->count();
-        if($productVariantItem > 0){
-            return response(['status' => 'error','message'=>'This variant contain variant items in it delete the variant items first for delete this variant!']);
+        // check vendor product owner
+        if ($product->Product->vendor_id !== Auth::user()->vendorprofile->id) {
+            abort(404);
+        }
+        $productVariantItem = ProductVariantItem::where('product_variant_id', $product->id)->count();
+        if ($productVariantItem > 0) {
+            return response(['status' => 'error', 'message' => 'This variant contain variant items in it delete the variant items first for delete this variant!']);
         }
         $product->delete();
-        return response(['status' => 'success','message'=>'Deleted Successfully!']);
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
-    public function changeStatus(Request $request){
+    public function changeStatus(Request $request)
+    {
         $product = ProductVariant::findOrFail($request->id);
         $product->status = $request->status == 'true' ? 1 : 0;
         $product->save();

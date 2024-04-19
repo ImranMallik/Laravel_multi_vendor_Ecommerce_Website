@@ -175,6 +175,10 @@ class ProductController extends Controller
     {
 
         $product = Product::findOrFail($id);
+         // Check owner Of Product---
+         if($product->vendor_id != Auth::user()->vendorprofile->id){
+            abort(404);
+        }
 
         $this->deleteImage($product->thumb_image);
         // Delete Product gallery Image

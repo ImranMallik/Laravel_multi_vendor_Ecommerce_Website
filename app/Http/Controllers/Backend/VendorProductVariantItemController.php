@@ -8,30 +8,37 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VendorProductVariantItemController extends Controller
 {
-    public function index(VendorProductVariantItemDataTable $dataTable,$productId,$variantId){
+    public function index(VendorProductVariantItemDataTable $dataTable, $productId, $variantId)
+    {
         $product = Product::findOrFail($productId);
+        // Check Produvt vendor owner
+
+
         $variant = ProductVariant::findOrFail($variantId);
 
-       return $dataTable->render('vendor.products.product-variant-item.index',compact('product','variant'));
+        return $dataTable->render('vendor.products.product-variant-item.index', compact('product', 'variant'));
     }
 
-    public function create(string $productId,string $variantId){
+    public function create(string $productId, string $variantId)
+    {
         $productVariant = ProductVariant::findOrFail($variantId);
         $product = Product::findOrFail($productId);
-      return view('vendor.products.product-variant-item.create',compact('productVariant','product'));
-      return 'Ok';
+        return view('vendor.products.product-variant-item.create', compact('productVariant', 'product'));
+        return 'Ok';
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // dd($request->all());
         $request->validate([
-            'variant_id' => ['required','integer'],
-            'name' => ['required','max:200'],
-            'price' => ['required','integer'],
-            'is_default' =>['required'],
+            'variant_id' => ['required', 'integer'],
+            'name' => ['required', 'max:200'],
+            'price' => ['required', 'integer'],
+            'is_default' => ['required'],
             'status' => ['required']
         ]);
 
@@ -43,23 +50,25 @@ class VendorProductVariantItemController extends Controller
         $productvariantitem->status = $request->status;
         $productvariantitem->save();
 
-        toastr('Created Successfully!','success');
+        toastr('Created Successfully!', 'success');
 
-        return redirect()->route('vendor.product-variant-item.index',['productId' => $request->product_id,'variantId' => $request->variant_id]);
+        return redirect()->route('vendor.product-variant-item.index', ['productId' => $request->product_id, 'variantId' => $request->variant_id]);
     }
 
-    public function edit(string $variantItemId){
+    public function edit(string $variantItemId)
+    {
         // return "Ok";
         $variantItem = ProductVariantItem::findOrFail($variantItemId);
-        return view('vendor.products.product-variant-item.edit',compact('variantItem'));
+        return view('vendor.products.product-variant-item.edit', compact('variantItem'));
     }
 
-    public function update(Request $request,string $variantItemId){
+    public function update(Request $request, string $variantItemId)
+    {
         // dd($request->all());
         $request->validate([
-            'name' => ['required','max:200'],
-            'price' => ['required','integer'],
-            'is_default' =>['required'],
+            'name' => ['required', 'max:200'],
+            'price' => ['required', 'integer'],
+            'is_default' => ['required'],
             'status' => ['required']
         ]);
 
@@ -71,19 +80,21 @@ class VendorProductVariantItemController extends Controller
         $productvariantitem->status = $request->status;
         $productvariantitem->save();
 
-        toastr('Updated Successfully!','success');
+        toastr('Updated Successfully!', 'success');
 
-        return redirect()->route('admin.product-variant-item.index',['productId' => $productvariantitem ->ProductVariant->product_id,'variantId' =>$productvariantitem->product_variant_id]);
+        return redirect()->route('admin.product-variant-item.index', ['productId' => $productvariantitem->ProductVariant->product_id, 'variantId' => $productvariantitem->product_variant_id]);
     }
 
-    public function destroy(string $variantItemId){
+    public function destroy(string $variantItemId)
+    {
         $variantItem = ProductVariantItem::findOrFail($variantItemId);
         $variantItem->delete();
 
-        return response(['status'=>'success','message' => 'Deleted Successfully!']);
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
-    public function changeStatus(Request $request){
+    public function changeStatus(Request $request)
+    {
         $variantItem = ProductVariantItem::findOrFail($request->id);
         $variantItem->status = $request->status == 'true' ? 1 : 0;
         $variantItem->save();
