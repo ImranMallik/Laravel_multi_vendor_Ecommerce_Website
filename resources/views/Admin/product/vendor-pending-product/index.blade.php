@@ -3,7 +3,7 @@
 @section('section')
     <section class="section">
         <div class="section-header">
-            <h1>Product</h1>
+            <h1>Pending Products</h1>
 
         </div>
 
@@ -13,11 +13,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Product</h4>
-                            <div class="card-header-action">
-                                <a href="{{ route('admin.products.create') }}" class="btn btn-primary"><i
-                                        class="fas fa-plus"></i> Create New</a>
-                            </div>
+                            <h4>All Seller Pending Products</h4>
+
                         </div>
                         <div class="card-body">
                             {{ $dataTable->table() }}
@@ -59,6 +56,31 @@
                 })
 
             })
+            //Product Pending Change Status
+            $('body').on('change', '.is_approve', function() {
+                let value = $(this).val();
+                let id = $(this).data('id');
+                // alert(id);
+
+
+                $.ajax({
+
+                    url: "{{ route('admin.change-approve-status') }}",
+                    method: 'PUT',
+                    data: {
+                        value: value,
+                        id: id
+                    },
+                    success: function(data) {
+                        toastr.success(data.message);
+                        window.location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                })
+            })
+
         })
     </script>
 @endpush

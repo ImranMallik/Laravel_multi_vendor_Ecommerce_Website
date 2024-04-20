@@ -142,7 +142,7 @@ class ProductController extends Controller
         $Product->thumb_image = empty(!$iamgePath) ? $iamgePath : $Product->thumb_image;
         $Product->name = $request->name;
         $Product->slug = Str::slug($request->name);
-        $Product->vendor_id = Auth::user()->vendorprofile->id;
+        // $Product->vendor_id = Auth::user()->vendorprofile->id;
         $Product->category_id = $request->category;
         $Product->sub_category_id = $request->sub_category;
         $Product->child_category_id = $request->child_category;
@@ -158,7 +158,7 @@ class ProductController extends Controller
         $Product->offer_end_date = $request->offer_end;
         $Product->product_type = $request->product_type;
         $Product->status = $request->status;
-        $Product->is_approved = 1;
+        // $Product->is_approved = 1;
         $Product->seo_title = $request->seo_title;
         $Product->seo_description = $request->seo_description;
 
@@ -175,8 +175,8 @@ class ProductController extends Controller
     {
 
         $product = Product::findOrFail($id);
-         // Check owner Of Product---
-         if($product->vendor_id != Auth::user()->vendorprofile->id){
+        // Check owner Of Product---
+        if ($product->vendor_id != Auth::user()->vendorprofile->id) {
             abort(404);
         }
 
@@ -185,22 +185,21 @@ class ProductController extends Controller
 
         $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();
 
-        foreach($galleryImages as $image){
+        foreach ($galleryImages as $image) {
             $this->deleteImage($image->image);
             $image->delete();
         }
         //Delete Product variant if exist -
         $variants = ProductVariant::where('product_id', $product->id)->get();
 
-        foreach($variants as $variant){
+        foreach ($variants as $variant) {
             $variant->ProductVariantItem()->delete();
             $variant->delete();
         }
 
         $product->delete();
 
-        return response(['status' => 'success','message' => 'Deleted Successfully!']);
-
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
     public function getSubCategories(Request $request)
@@ -220,10 +219,11 @@ class ProductController extends Controller
         return $childCategory;
     }
 
-    public function changeStatus(Request $request){
+    public function changeStatus(Request $request)
+    {
         $product = Product::findOrFail($request->id);
-        $product ->status = $request->status == 'true' ? 1 : 0;
-        $product ->save();
+        $product->status = $request->status == 'true' ? 1 : 0;
+        $product->save();
 
         return response(['message' => 'Status has been updated!']);
     }
