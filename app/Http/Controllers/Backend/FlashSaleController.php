@@ -61,16 +61,17 @@ class FlashSaleController extends Controller
     {
         // dd($request->all());
         // die;
-        $changestatus = FlashItem::findOrFaild($request->id);
+        $changestatus = FlashItem::findOrFail($request->id);
         $changestatus->status = $request->status == 'true' ? 1 : 0;
         $changestatus->save();
 
         return response(['message' => 'Status has been update!']);
     }
-
     public function showAtHome(Request $request)
     {
-        $changestatus = FlashItem::findOrFaild($request->id);
+        // dd($request->all());
+        // die;
+        $changestatus = FlashItem::findOrFail($request->id);
         $changestatus->show_at_home = $request->status == 'true' ? 1 : 0;
         $changestatus->save();
 

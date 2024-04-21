@@ -144,7 +144,7 @@
                 })
 
             })
-            // Show At Home--
+            // change show at home
             $('body').on('click', '.show-at-home', function() {
                 //    alert('Hello');
                 let isChecked = $(this).is(':checked');

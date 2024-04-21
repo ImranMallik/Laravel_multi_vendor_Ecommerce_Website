@@ -92,4 +92,4 @@ Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sal
 Route::put('flash-sale', [FlashSaleController::class, 'update'])->name('flash-sale.update');
 Route::post('flash-sale/add-product', [FlashSaleController::class, 'addProduct'])->name('flash-sale.add-product');
 Route::put('flash-sale-status', [FlashSaleController::class, 'statusChange'])->name('flash-sale.status-change');
-Route::put('flash-sale/show-at-home', [FlashSaleController::class, 'showAtHome'])->name('flash-sale.show-at-home');
+Route::put('flash-sale-status/show-at-home', [FlashSaleController::class, 'showAtHome'])->name('flash-sale.show-at-home');
