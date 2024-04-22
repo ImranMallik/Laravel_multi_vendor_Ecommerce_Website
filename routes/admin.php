@@ -93,3 +93,4 @@ Route::put('flash-sale', [FlashSaleController::class, 'update'])->name('flash-sa
 Route::post('flash-sale/add-product', [FlashSaleController::class, 'addProduct'])->name('flash-sale.add-product');
 Route::put('flash-sale-status', [FlashSaleController::class, 'statusChange'])->name('flash-sale.status-change');
 Route::put('flash-sale-status/show-at-home', [FlashSaleController::class, 'showAtHome'])->name('flash-sale.show-at-home');
+Route::delete('flash-sale/{id}/destory', [FlashSaleController::class, 'destroy'])->name('flash-sale.destroy');

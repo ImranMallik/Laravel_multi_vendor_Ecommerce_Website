@@ -26,7 +26,7 @@
     {{-- Toster Css --}}
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simply-countdown@2.4.0/dist/simplyCountdown.min.css">
+
 
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
@@ -146,9 +146,11 @@
 
     {{-- Toster Script --}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('frontend/js/simplyCountdown.js') }}"></script>
 
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simply-countdown@2.4.0/dist/simplyCountdown.min.js"></script>
+
+
 
     <script>
         @if ($errors->any())
@@ -157,6 +159,7 @@
             @endforeach
         @endif
     </script>
+    @stack('scripts')
 </body>
 
 </html>

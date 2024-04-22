@@ -287,18 +287,18 @@ $(function () {
     prevArrow: '<i class="fas fa-angle-down prv_arr"></i>',
   });
 
-  //=======COUNTDOWN======
-  var d = new Date(),
-    countUpDate = new Date();
-  d.setDate(d.getDate() + 90);
+  // //=======COUNTDOWN======
+  // var d = new Date(),
+  //   countUpDate = new Date();
+  // d.setDate(d.getDate() + 90);
 
-  // default example
-  simplyCountdown(".simply-countdown-one", {
-    year: d.getFullYear(),
-    month: d.getMonth() + 1,
-    day: d.getDate(),
-    enableUtc: true,
-  });
+  // // default example
+  // simplyCountdown(".simply-countdown-one", {
+  //   year: d.getFullYear(),
+  //   month: d.getMonth() + 1,
+  //   day: d.getDate(),
+  //   enableUtc: true,
+  // });
 
   //*==========SCROLL BUTTON==========
   $(".wsus__scroll_btn").on("click", function () {

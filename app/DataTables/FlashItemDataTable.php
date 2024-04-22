@@ -23,14 +23,15 @@ class FlashItemDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $deleteBtn = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.flash-sale.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
 
 
 
                 return  $deleteBtn;
             })
             ->addColumn('product_name', function ($query) {
-                return $query->Product->name;
+                return "<a href='" . route('admin.products.edit', $query->product->id) . "' >" . $query->Product->name . "</a>";
+                // $query->Product->name
             })
             ->addColumn('status', function ($query) {
                 if ($query->status == 1) {
@@ -62,7 +63,7 @@ class FlashItemDataTable extends DataTable
                 }
                 return $button;
             })
-            ->rawColumns(['status', 'show_at_home', 'action'])
+            ->rawColumns(['status', 'show_at_home', 'action', 'product_name'])
             ->setRowId('id');
     }
 
