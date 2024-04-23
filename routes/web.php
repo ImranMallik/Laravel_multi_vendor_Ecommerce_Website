@@ -3,6 +3,8 @@
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\VendorController;
+use App\Http\Controllers\Frontend\FrontFlashSaleController;
+use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UseProfileController;
 use App\Http\Controllers\ProfileController;
@@ -24,10 +26,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('frontend.home.dashboard');
 // });
 // Route::get('/dashboard', function () {
-    //     return view('frontend.dashboard.dashboard');
-    // })->middleware(['auth', 'verified'])->name('dashboard');
-    
-Route::get('/',[FrontendController::class,'index']);
+//     return view('frontend.dashboard.dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/', [FrontendController::class, 'index']);
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -42,6 +44,10 @@ Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login'
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+// 
+
+Route::get('flash-sale', [FrontFlashSaleController::class, 'index'])->name('flash-sale');
+Route::get('product-detail/{slug}', [ProductDetailsController::class, 'showProduct'])->name('product-details');
 
 //Use Dashboard---
 
@@ -52,5 +58,5 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     // User Profile Update
     Route::put('profile', [UseProfileController::class, 'profileUpdate'])->name('profile.update');
     //Password Update
-    Route::post('profile',[UseProfileController::class,'passwordUpdate'])->name('password.update');
+    Route::post('profile', [UseProfileController::class, 'passwordUpdate'])->name('password.update');
 });
