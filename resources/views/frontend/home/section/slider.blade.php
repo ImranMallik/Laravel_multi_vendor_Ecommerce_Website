@@ -10,7 +10,7 @@
                                      <div class="wsus__single_slider_text">
                                          <h3>{{ $slider->type }}</h3>
                                          <h1>{{ $slider->title }}</h1>
-                                         <h6>start at ${{ $slider->price }}</h6>
+                                         <h6>start at {{ $settings->currency_icon }}{{ $slider->price }}</h6>
                                          <a class="common_btn" href="#">shop now</a>
                                      </div>
                                  </div>

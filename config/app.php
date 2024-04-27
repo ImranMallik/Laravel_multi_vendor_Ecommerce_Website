@@ -44,6 +44,8 @@ return [
 
     'debug' => (bool) env('APP_DEBUG', false),
 
+    'my_name' => 'imran',
+
     /*
     |--------------------------------------------------------------------------
     | Application URL

@@ -74,6 +74,10 @@
 
                   </ul>
               </li>
+              <li> <a href="{{ route('admin.setting.index') }}" class="nav-link"><i class="fa-solid fa-sliders"></i>
+                      <span>Setting</span></a>
+              </li>
+
               {{-- <li class="dropdown">
                   <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                       <span>Layout</span></a>
