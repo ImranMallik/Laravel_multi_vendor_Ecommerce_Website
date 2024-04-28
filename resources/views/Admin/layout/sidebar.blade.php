@@ -60,6 +60,8 @@
                   <ul class="dropdown-menu">
                       <li class="{{ setActive(['admin.flash-sale.*']) }}"><a class="nav-link"
                               href="{{ route('admin.flash-sale.index') }}">Flash Sale</a></li>
+                      <li class="{{ setActive(['admin.coupons.*']) }}"><a class="nav-link"
+                              href="{{ route('admin.coupons.index') }}">Coupons</a></li>
                       <li class="{{ setActive(['admin.vendor-profile.*']) }}"><a class="nav-link"
                               href="{{ route('admin.vendor-profile.index') }}">Vendor Profile</a></li>
 
