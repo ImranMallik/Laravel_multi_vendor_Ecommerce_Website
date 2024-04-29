@@ -98,7 +98,7 @@ Route::put('flash-sale-status/show-at-home', [FlashSaleController::class, 'showA
 Route::delete('flash-sale/{id}/destory', [FlashSaleController::class, 'destroy'])->name('flash-sale.destroy');
 
 // Copon Route--
-
+Route::put('coupons/change-status', [CouponController::class, 'statusChange'])->name('coupons.status-change');
 Route::resource('coupons', CouponController::class);
 
 // Genaral Setting-----

@@ -75,7 +75,8 @@ class CouponController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+        return view('Admin.coupon.edit', compact('coupon'));
     }
 
     /**
@@ -83,7 +84,34 @@ class CouponController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'name' => ['required', 'max:200'],
+            'code' => ['required', 'max:200'],
+            'quantity' => ['required', 'max:200'],
+            'max_use' => ['required', 'max:200', 'integer'],
+            'start_date' => ['required'],
+            'end_date' => ['required'],
+            'discount_type' => ['required', 'max:200'],
+            'descount_value' => ['required', 'integer'],
+            'status' => ['required', 'integer']
+        ]);
+
+        $coupon = Coupon::findOrFail($id);
+        $coupon->name = $request->name;
+        $coupon->code = $request->code;
+        $coupon->quantity = $request->quantity;
+        $coupon->max_use = $request->max_use;
+        $coupon->start_date = $request->start_date;
+        $coupon->end_date = $request->end_date;
+        $coupon->discount_type = $request->discount_type;
+        $coupon->descount_value = $request->descount_value;
+        $coupon->total_used = 0;
+        $coupon->status = $request->status;
+        $coupon->save();
+
+        toastr('Updated Successfully', 'success', 'success');
+        return redirect()->route('admin.coupons.index');
     }
 
     /**
@@ -91,6 +119,17 @@ class CouponController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+        $coupon->delete();
+
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+    }
+
+    public function statusChange(Request $request)
+    {
+        $coupon = Coupon::findOrFail($request->id);
+        $coupon->status = $request->status == 'true' ? 1 : 0;
+        $coupon->save();
+        return response(['message' => 'Status has been updated!']);
     }
 }

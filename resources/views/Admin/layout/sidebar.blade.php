@@ -53,7 +53,7 @@
                   </ul>
               </li>
 
-              <li class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.flash-sale.*']) }}">
+              <li class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.flash-sale.*', 'admin.coupons.*']) }}">
                   <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                           class="fa-solid fa-cash-register"></i>
                       <span>Ecommerce</span></a>
