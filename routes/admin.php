@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\ProductVariantController;
 use App\Http\Controllers\Backend\ProductVariantItemController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SellerProductController;
+use App\Http\Controllers\Backend\ShippingRuleController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\VendorProfileController;
@@ -100,6 +101,9 @@ Route::delete('flash-sale/{id}/destory', [FlashSaleController::class, 'destroy']
 // Copon Route--
 Route::put('coupons/change-status', [CouponController::class, 'statusChange'])->name('coupons.status-change');
 Route::resource('coupons', CouponController::class);
+// Shipping-Rule Route--
+Route::put('shipping-rule/change-status', [ShippingRuleController::class, 'statusChange'])->name('shipping-rule.status-change');
+Route::resource('shipping-rule', ShippingRuleController::class);
 
 // Genaral Setting-----
 
