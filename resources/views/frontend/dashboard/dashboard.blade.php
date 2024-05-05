@@ -15,12 +15,7 @@
                                         <p>order</p>
                                     </a>
                                 </div>
-                                {{-- <div class="col-xl-2 col-6 col-md-4">
-                  <a class="wsus__dashboard_item green" href="dsahboard_download.html">
-                    <i class="fal fa-cloud-download"></i>
-                    <p>download</p>
-                  </a>
-                </div> --}}
+
                                 <div class="col-xl-2 col-6 col-md-4">
                                     <a class="wsus__dashboard_item green" href="dsahboard_review.html">
                                         <i class="fas fa-download"></i>

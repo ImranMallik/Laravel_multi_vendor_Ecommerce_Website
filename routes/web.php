@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\FrontFlashSaleController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UseProfileController;
+use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -59,4 +60,6 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::put('profile', [UseProfileController::class, 'profileUpdate'])->name('profile.update');
     //Password Update
     Route::post('profile', [UseProfileController::class, 'passwordUpdate'])->name('password.update');
+
+    Route::resource('address', UserAddressController::class);
 });
