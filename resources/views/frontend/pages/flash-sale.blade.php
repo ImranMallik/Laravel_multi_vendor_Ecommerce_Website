@@ -1,5 +1,9 @@
 @extends('frontend.layouts.master')
 
+@section('title')
+    {{ $settings->site_name }} || Flash Sale
+@endsection
+
 @section('content')
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">

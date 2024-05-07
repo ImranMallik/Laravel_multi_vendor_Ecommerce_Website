@@ -1,48 +1,13 @@
-{{-- <x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
-
-        <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}
 @extends('frontend.layouts.master')
 
+@section('title')
+    {{ $settings->site_name }} || Reset Password
+@endsection
+
 @section('content')
- <!--============================
-        BREADCRUMB START
-    ==============================-->
+    <!--============================
+                BREADCRUMB START
+            ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -59,13 +24,13 @@
         </div>
     </section>
     <!--============================
-        BREADCRUMB END
-    ==============================-->
+                BREADCRUMB END
+            ==============================-->
 
 
     <!--============================
-        CHANGE PASSWORD START
-    ==============================-->
+                CHANGE PASSWORD START
+            ==============================-->
     <section id="wsus__login_register">
         <div class="container">
             <div class="row">
@@ -77,7 +42,8 @@
                             <input type="hidden" name="token" value="{{ $request->route('token') }}">
                             <div class="wsus__single_pass">
                                 <label for="email">Email</label>
-                                <input id="email" name="email" value="{{ old('email', $request->email) }}" type="email" placeholder="Current Email">
+                                <input id="email" name="email" value="{{ old('email', $request->email) }}"
+                                    type="email" placeholder="Current Email">
                             </div>
                             <div class="wsus__single_pass">
                                 <label for="password">new password</label>
@@ -85,7 +51,8 @@
                             </div>
                             <div class="wsus__single_pass">
                                 <label for="password_confirmation">confirm password</label>
-                                <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password">
+                                <input type="password" id="password_confirmation" name="password_confirmation"
+                                    placeholder="Confirm Password">
                             </div>
                             <button class="common_btn" type="submit">submit</button>
                         </div>
@@ -95,6 +62,6 @@
         </div>
     </section>
     <!--============================
-        CHANGE PASSWORD END
-    ==============================-->
+                CHANGE PASSWORD END
+            ==============================-->
 @endsection

@@ -1,4 +1,7 @@
 @extends('vendor.layouts.master')
+@section('title')
+    {{ $settings->site_name }} || User Profile
+@endsection
 @section('content')
     <section id="wsus__dashboard">
         <div class="container-fluid">
@@ -52,7 +55,7 @@
                                         </div>
                                 </form>
 
-                                <form action="{{ route('vendor.password.update')}}" method="POST">
+                                <form action="{{ route('vendor.password.update') }}" method="POST">
                                     @csrf
                                     <div class="wsus__dash_pass_change mt-2">
                                         <div class="row">

@@ -9516,6 +9516,10 @@ a:not([href]):not([class]):hover {
   -ms-transition: all linear 0.3s ease;
   -o-transition: all linear 0.3s ease;
 }
-#sticky_pro_zoom {
+/* #sticky_pro_zoom {
+  z-index: 999 !important;
+} */
+
+#imran {
   z-index: 999 !important;
 }

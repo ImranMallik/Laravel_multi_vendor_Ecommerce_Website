@@ -1,4 +1,7 @@
 @extends('vendor.layouts.master')
+@section('title')
+    {{ $settings->site_name }} || Product
+@endsection
 @section('content')
     <section id="wsus__dashboard">
         <div class="container-fluid">
@@ -10,7 +13,8 @@
                         <h3><i class="fab fa-shopify"></i>Create Product</h3>
                         <div class="wsus__dashboard_profile">
                             <div class="wsus__dash_pro_area">
-                                <form action="{{ route('vendor.products.store') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('vendor.products.store') }}" method="post"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group wsus__input">
                                         <label>Image</label>
@@ -52,7 +56,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Brand</label>
                                         <select id="status" name="brand" class="form-control form-control-lg">
@@ -64,11 +68,13 @@
                                     </div>
                                     <div class="form-group wsus__input">
                                         <label for="status">Sku</label>
-                                        <input type="text" class="form-control" name="sku" value="{{ old('name') }}">
+                                        <input type="text" class="form-control" name="sku"
+                                            value="{{ old('name') }}">
                                     </div>
                                     <div class="form-group wsus__input">
                                         <label for="status">Price</label>
-                                        <input type="text" class="form-control" name="price" value="{{ old('price') }}">
+                                        <input type="text" class="form-control" name="price"
+                                            value="{{ old('price') }}">
                                     </div>
                                     <div class="form-group wsus__input">
                                         <label for="status">Offer Price</label>
@@ -91,7 +97,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Stock Quantity</label>
                                         <input type="number" min="0" class="form-control" name="qty"
@@ -110,7 +116,7 @@
                                         <label for="status">Long Description</label>
                                         <textarea name="long_description" class="form-control" id="summernote"></textarea>
                                     </div>
-    
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Product Type</label>
                                         <select id="status" name="product_type" class="form-control form-control-lg">
@@ -121,8 +127,8 @@
                                             <option value="best_product">Best Product</option>
                                         </select>
                                     </div>
-    
-    
+
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Seo Title</label>
                                         <input type="text" class="form-control" name="seo_title"
@@ -132,7 +138,7 @@
                                         <label for="status">Seo Description</label>
                                         <textarea name="seo_description" class="form-control"></textarea>
                                     </div>
-    
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Status</label>
                                         <select id="status" name="status" class="form-control form-control-lg">

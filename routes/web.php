@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\VendorController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FrontFlashSaleController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\UserDashboardController;
@@ -49,6 +50,9 @@ Route::get('/dashboard', function () {
 
 Route::get('flash-sale', [FrontFlashSaleController::class, 'index'])->name('flash-sale');
 Route::get('product-detail/{slug}', [ProductDetailsController::class, 'showProduct'])->name('product-details');
+// Cart Controller
+
+Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 
 //Use Dashboard---
 

@@ -1,4 +1,7 @@
 @extends('vendor.layouts.master')
+@section('title')
+    {{ $settings->site_name }} || Product Variant
+@endsection
 @section('content')
     <section id="wsus__dashboard">
         <div class="container-fluid">
@@ -13,18 +16,19 @@
                         <h3><i class="fab fa-shopify"></i> Product Variant</h3>
                         {{-- <h5>Product: {{ $product->name }}</h5> --}}
                         {{-- <h4>Product:{{ $product->name }}</h4> --}}
-                      
+
                         <div class="wsus__dashboard_profile">
                             <div class="wsus__dash_pro_area">
                                 <form method="POST" action="{{ route('vendor.products-variant.store') }}">
                                     @csrf
-                                  
+
                                     <div class="form-group wsus__input">
                                         <label>Name</label>
                                         <input type="text" name="name" class="form-control">
                                     </div>
                                     <div class="form-group wsus__input">
-                                        <input type="hidden" name="product" value="{{request()->product}}" class="form-control">
+                                        <input type="hidden" name="product" value="{{ request()->product }}"
+                                            class="form-control">
                                     </div>
                                     <div class="form-group wsus__input">
                                         <label for="status">Status</label>
@@ -47,5 +51,3 @@
         </div>
     </section>
 @endsection
-
-

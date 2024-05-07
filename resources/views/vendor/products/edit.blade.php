@@ -1,4 +1,7 @@
 @extends('vendor.layouts.master')
+@section('title')
+    {{ $settings->site_name }} || Product
+@endsection
 @section('content')
     <section id="wsus__dashboard">
         <div class="container-fluid">
@@ -26,7 +29,8 @@
                                     </div>
                                     <div class="form-group wsus__input">
                                         <label>Name</label>
-                                        <input type="text" name="name" value="{{ $product->name }}" class="form-control">
+                                        <input type="text" name="name" value="{{ $product->name }}"
+                                            class="form-control">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
@@ -36,7 +40,8 @@
                                                     class="form-control form-control-lg main-category">
                                                     <option value="">Select</option>
                                                     @foreach ($categories as $category)
-                                                        <option {{ $category->id == $product->category_id ? 'selected' : '' }}
+                                                        <option
+                                                            {{ $category->id == $product->category_id ? 'selected' : '' }}
                                                             value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -49,7 +54,8 @@
                                                     class="form-control form-control-lg sub-category">
                                                     <option value="">Select</option>
                                                     @foreach ($subcategory as $value)
-                                                        <option {{ $value->id == $product->sub_category_id ? 'selected' : '' }}
+                                                        <option
+                                                            {{ $value->id == $product->sub_category_id ? 'selected' : '' }}
                                                             value="{{ $value->id }}">{{ $value->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -70,7 +76,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Brand</label>
                                         <select id="status" name="brand" class="form-control form-control-lg">
@@ -83,7 +89,8 @@
                                     </div>
                                     <div class="form-group wsus__input">
                                         <label for="status">Sku</label>
-                                        <input type="text" class="form-control" name="sku" value="{{ $product->sku }}">
+                                        <input type="text" class="form-control" name="sku"
+                                            value="{{ $product->sku }}">
                                     </div>
                                     <div class="form-group wsus__input">
                                         <label for="status">Price</label>
@@ -111,7 +118,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Stock Quantity</label>
                                         <input type="number" min="0" class="form-control" name="qty"
@@ -130,7 +137,7 @@
                                         <label for="status">Long Description</label>
                                         <textarea name="long_description" id="summernote" class="form-control summernote">{{ $product->long_description }}</textarea>
                                     </div>
-    
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Product Type</label>
                                         <select id="status" name="product_type" class="form-control form-control-lg">
@@ -145,8 +152,8 @@
                                                 value="best_product">Best Product</option>
                                         </select>
                                     </div>
-    
-    
+
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Seo Title</label>
                                         <input type="text" class="form-control" name="seo_title"
@@ -156,7 +163,7 @@
                                         <label for="status">Seo Description</label>
                                         <textarea name="seo_description" class="form-control">{!! $product->seo_description !!}</textarea>
                                     </div>
-    
+
                                     <div class="form-group wsus__input">
                                         <label for="status">Status</label>
                                         <select id="status" name="status" class="form-control form-control-lg">
