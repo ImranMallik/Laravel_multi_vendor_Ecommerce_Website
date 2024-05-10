@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('frontend.dashboard.dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/', [FrontendController::class, 'index']);
+Route::get('/', [FrontendController::class, 'index'])->name('user.index');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -50,10 +50,13 @@ Route::get('/dashboard', function () {
 
 Route::get('flash-sale', [FrontFlashSaleController::class, 'index'])->name('flash-sale');
 Route::get('product-detail/{slug}', [ProductDetailsController::class, 'showProduct'])->name('product-details');
-// Cart Controller
 
+// Cart Route-----
+// Add Product In Cart Using Ajax---
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-
+Route::get('add-details', [CartController::class, 'cartDetails'])->name('cart-details');
+Route::post('update-qty', [CartController::class, 'updateQty'])->name('update-qty');
+// End Cart Route
 //Use Dashboard---
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {

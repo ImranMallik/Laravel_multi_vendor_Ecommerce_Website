@@ -9523,3 +9523,14 @@ a:not([href]):not([class]):hover {
 #imran {
   z-index: 999 !important;
 }
+
+.product_qty_wrapper {
+  display: flex;
+}
+
+.product_qty_wrapper > .product-qty {
+  width: 43px;
+  height: 36px;
+  padding-left: 5px;
+  text-align: center;
+}
