@@ -56,6 +56,14 @@ Route::get('product-detail/{slug}', [ProductDetailsController::class, 'showProdu
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::get('add-details', [CartController::class, 'cartDetails'])->name('cart-details');
 Route::post('update-qty', [CartController::class, 'updateQty'])->name('update-qty');
+// Clear All Cart--__
+Route::get('clear-all-cart', [CartController::class, 'clearAllCart'])->name('clear-all-cart');
+// Delete Singel Cart Item 
+Route::get('cart/remove-product/{rowId}', [CartController::class, 'removeProduct'])->name('clear-singel-item');
+// Count Cart Item Dynamic---__
+Route::get('cart-item-count', [CartController::class, 'countCartItem'])->name('count-cart-item');
+// Add mini Cart Product ------____
+Route::get('mini-cart-product', [CartController::class, 'addMiniCart'])->name('add-mini-cart');
 // End Cart Route
 //Use Dashboard---
 

@@ -53,7 +53,7 @@ class CartController extends Controller
         // dd($cartData);
         Cart::add($cartData);
 
-        return response(['status' => 'success', 'message' => 'Added to cart successfully!']);
+        return response(['status' => 'success', 'message' => 'Added to Cart Successfully!']);
     }
 
 
@@ -65,12 +65,57 @@ class CartController extends Controller
         // dd($cartItem);
         return view('frontend.pages.cart-details', compact('cartItem'));
     }
-
+    //Increment Product quentity---
     public function updateQty(Request $request)
     {
         // dd($request->all());
         Cart::update($request->rowId, $request->quantity);
+        // Function ka call korlam--
+        $productTotal = $this->getProductTotal($request->rowId);
 
-        return response(['status' => 'success', 'message' => 'Poruduct Quantity Updated!']);
+        return response(['status' => 'success', 'message' => 'Poruduct Quantity Updated!', 'product_total' => $productTotal]);
+    }
+    // increment product totel price
+
+    public function getProductTotal($rowId)
+    {
+        $product = Cart::get($rowId);
+        $total = ($product->price + $product->options->variants_totral) * $product->qty;
+        return $total;
+    }
+
+    // Clera all cart Item----___
+
+    public function clearAllCart()
+    {
+        Cart::destroy();
+
+        return response(['status' => 'success', 'message' => 'Cart Clear Successfully!']);
+    }
+
+    // Clear Singel Item---___
+
+    public function removeProduct($rowId)
+    {
+        // dd($rowId);
+        Cart::remove($rowId);
+
+        return redirect()->back();
+    }
+
+
+    // Count Cart Item ------_________
+
+    public function countCartItem()
+    {
+        return Cart::content()->count();
+    }
+
+
+    //Add Product Mini Cart  
+
+    public function addMiniCart()
+    {
+        return Cart::content();
     }
 }
