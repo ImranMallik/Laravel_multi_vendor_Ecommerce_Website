@@ -54,3 +54,17 @@ function productType(string $type)
             break;
     }
 }
+
+
+// Get mini Cart total ammount
+
+function getCartTotal()
+{
+    $total = 0;
+
+    foreach (\Cart::content() as $product) {
+
+        $total +=  ($product->price + $product->options->variants_total) * $product->qty;
+    }
+    return $total;
+}

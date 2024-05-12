@@ -5,8 +5,8 @@
 @endsection
 @section('content')
     <!--==========================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          PRODUCT MODAL VIEW START
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ===========================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      PRODUCT MODAL VIEW START
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ===========================-->
     <section class="product_popup_modal">
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
@@ -134,13 +134,13 @@
         </div>
     </section>
     <!--==========================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          PRODUCT MODAL VIEW END
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ===========================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      PRODUCT MODAL VIEW END
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ===========================-->
 
 
     <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            BREADCRUMB START
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        BREADCRUMB START
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -158,13 +158,13 @@
         </div>
     </section>
     <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            BREADCRUMB END
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        BREADCRUMB END
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ==============================-->
 
 
     <!--============================
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            PRODUCT DETAILS START
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ==============================-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        PRODUCT DETAILS START
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ==============================-->
     <section id="wsus__product_details">
         <div class="container">
             <div class="wsus__details_bg">
@@ -227,19 +227,23 @@
                                     <div class="row">
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         @foreach ($product->ProductVariat as $item)
-                                            <div class="col-xl-6 col-sm-6">
-                                                <h5 class="mb-2">{{ $item->name }}:</h5>
-                                                <select class="select_2" name="variants_item[]">
-                                                    @foreach ($item->ProductVariantItem as $variantItem)
-                                                        <option value="{{ $variantItem->id }}"
-                                                            {{ $variantItem->is_defult == 1 ? 'selected' : '' }}>
-                                                            {{ $variantItem->name }}
-                                                            ({{ $settings->currency_icon }}{{ $variantItem->price }})
-                                                        </option>
-                                                    @endforeach
+                                            @if ($item->status != 0)
+                                                <div class="col-xl-6 col-sm-6">
+                                                    <h5 class="mb-2">{{ $item->name }}:</h5>
+                                                    <select class="select_2" name="variants_item[]">
+                                                        @foreach ($item->ProductVariantItem as $variantItem)
+                                                            @if ($variantItem->status != 0)
+                                                                <option value="{{ $variantItem->id }}"
+                                                                    {{ $variantItem->is_defult == 1 ? 'selected' : '' }}>
+                                                                    {{ $variantItem->name }}
+                                                                    ({{ $settings->currency_icon }}{{ $variantItem->price }})
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
 
-                                                </select>
-                                            </div>
+                                                    </select>
+                                                </div>
+                                            @endif
                                         @endforeach
 
 
@@ -726,81 +730,3 @@
         </div>
     </section> --}}
 @endsection
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            // Add  Cart Item -------_____
-            $('.shopping-cart-form').on('submit', function(e) {
-                e.preventDefault();
-                let formData = $(this).serialize();
-                // console.log(formData);
-
-                $.ajax({
-                    method: 'POST',
-                    data: formData,
-                    url: "{{ route('add-to-cart') }}",
-                    success: function(data) {
-                        fetchSidebarCartProducts();
-                        getCartCount();
-                        toastr.success(data.message);
-                    },
-                    error: function(data) {
-
-                    }
-                })
-            })
-
-            // Count Cart Item In Cart Icont On Header------______
-
-            function getCartCount() {
-                $.ajax({
-                    method: 'GET',
-                    url: "{{ route('count-cart-item') }}",
-                    success: function(data) {
-                        $('#Cart_count').text(data);
-                    },
-                    error: function(data) {
-
-                    }
-                })
-            }
-
-            // Add Product mini cart icon (bag on  header)
-
-            function fetchSidebarCartProducts() {
-                $.ajax({
-                    method: 'GET',
-                    url: "{{ route('add-mini-cart') }}",
-                    success: function(data) {
-                        // console.log(data);
-                        let html = '';
-                        $('.mini_cart_wrapper').html("");
-                        for (let item in data) {
-                            let product = data[item];
-                            html += `<li>
-                       <div class="wsus__cart_img">
-                      <a href="#"><img src="{{ asset('/') }}${product.options.image}" alt="product" class="img-fluid w-100"></a>
-                      <a class="wsis__del_icon" href="{{ url('product-detail/') }}${product.options.slug}"><i class="fas fa-minus-circle"></i></a>
-                      </div>
-                      <div class="wsus__cart_text">
-                      <a class="wsus__cart_title" href="#">${product.name}</a>
-                      <p>{{ $settings->currency_icon }}${product.price}</p>
-                      </div>
-                      </li>`
-                        }
-                        $('.mini_cart_wrapper').html(html);
-                    },
-                    error: function(data) {
-
-                    }
-                })
-            }
-        })
-    </script>
-@endpush

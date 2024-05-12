@@ -57,25 +57,42 @@
                   </div>
               </li> --}}
               @foreach (Cart::content() as $sideparProduct)
-                  <li>
+                  <li id="mini_cart_{{ $sideparProduct->rowId }}">
                       <div class="wsus__cart_img">
                           <a href="#"><img src="{{ asset($sideparProduct->options->image) }}" alt="product"
                                   class="img-fluid w-100"></a>
-                          <a class="wsis__del_icon" href="#"><i class="fas fa-minus-circle"></i></a>
+                          <a class="wsis__del_icon remove_sidebar_product" data-id="{{ $sideparProduct->rowId }}"
+                              href="#"><i class="fas fa-minus-circle"></i></a>
                       </div>
                       <div class="wsus__cart_text">
                           <a class="wsus__cart_title"
                               href="{{ route('product-details', $sideparProduct->options->slug) }}">{{ $sideparProduct->name }}</a>
                           <p>{{ $settings->currency_icon }} {{ $sideparProduct->price }}</p>
+                          <small>Variants total:
+                              {{ $settings->currency_icon }}{{ $sideparProduct->options->variants_total }}</small>
+                          <br>
+                          <small>Qty: {{ $sideparProduct->qty }}</small>
                       </div>
                   </li>
               @endforeach
 
+              @if (Cart::content()->count() === 0)
+                  <li class="text-center">Cart Is Empty!</li>
+              @endif
+
           </ul>
-          <h5>sub total <span>$3540</span></h5>
-          <div class="wsus__minicart_btn_area">
-              <a class="common_btn" href="{{ route('cart-details') }}">view cart</a>
-              <a class="common_btn" href="check_out.html">checkout</a>
+          {{-- @php
+              $total = ($sideparProduct->price + $sideparProduct->options->variants_total) * $sideparProduct->qty;
+              print_r($total);
+          @endphp --}}
+          <div class="mini_cart_checkout {{ Cart::content()->count() === 0 ? 'd-none' : ' ' }}">
+              <h5>sub total <span id="mini_cart_price">{{ $settings->currency_icon }}{{ getCartTotal() }}</span>
+              </h5>
+              <div class="wsus__minicart_btn_area">
+                  <a class="common_btn" href="{{ route('cart-details') }}">view cart</a>
+                  <a class="common_btn" href="check_out.html">checkout</a>
+              </div>
+
           </div>
       </div>
 

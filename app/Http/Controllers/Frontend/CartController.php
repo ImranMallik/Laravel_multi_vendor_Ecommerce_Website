@@ -118,4 +118,29 @@ class CartController extends Controller
     {
         return Cart::content();
     }
+
+    // remove sidebar product in cart icon
+
+    public function removeSidebarProduct(Request $request)
+    {
+        // dd($request->all());
+        Cart::remove($request->rowId);
+
+        return response(['status' => 'success', 'message' => 'Product remove Successfully!']);
+    }
+
+
+    // get cart sidebar item price 
+
+    public function sidebarProductTotal()
+    {
+        $total = 0;
+
+        foreach (Cart::content() as $product) {
+
+            $total += $this->getProductTotal($product->rowId);
+        }
+
+        return $total;
+    }
 }

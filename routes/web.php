@@ -64,6 +64,10 @@ Route::get('cart/remove-product/{rowId}', [CartController::class, 'removeProduct
 Route::get('cart-item-count', [CartController::class, 'countCartItem'])->name('count-cart-item');
 // Add mini Cart Product ------____
 Route::get('mini-cart-product', [CartController::class, 'addMiniCart'])->name('add-mini-cart');
+// Remove mini Cart item-----
+Route::post('cart/remove-sidebar-product', [CartController::class, 'removeSidebarProduct'])->name('cart.remove-sidebar-product');
+// All mini cart item price
+Route::get('cart/sidebar-product-total', [CartController::class, 'sidebarProductTotal'])->name('cart.sidebar-product-total');
 // End Cart Route
 //Use Dashboard---
 
@@ -75,6 +79,5 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::put('profile', [UseProfileController::class, 'profileUpdate'])->name('profile.update');
     //Password Update
     Route::post('profile', [UseProfileController::class, 'passwordUpdate'])->name('password.update');
-
     Route::resource('address', UserAddressController::class);
 });
