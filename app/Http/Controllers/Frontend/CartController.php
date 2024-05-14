@@ -7,15 +7,38 @@ use App\Models\Product;
 use App\Models\ProductVariantItem;
 use Cart;
 use Illuminate\Http\Request;
+// use PHPUnit\Framework\Constraint\Count;
 
 class CartController extends Controller
 {
-    //
+
+
+    // Cart details ---
+
+    public function cartDetails(Request $request)
+    {
+        $cartItem = Cart::content();
+
+        if (Count($cartItem) === 0) {
+            toastr('Please add some products in your cart for view the cart pag!', 'warning', 'Warning');
+            return redirect()->route('user.index');
+        }
+        // dd($cartItem);
+        return view('frontend.pages.cart-details', compact('cartItem'));
+    }
+
 
     // Add item to the cart using AJAX______----------
     public function addToCart(Request $request)
     {
         $product = Product::findOrFail($request->product_id);
+
+        if ($product->qty === 0) {
+            return response(['status' => 'error', 'message' => 'Product Stock Out']);
+        } else if ($product->qty < $request->qty) {
+            return response(['status' => 'error', 'message' => 'Quantity not available in our stock']);
+        }
+
         // dd($request->all());
         // dd($request->variants_item);
         $variants = [];
@@ -57,17 +80,18 @@ class CartController extends Controller
     }
 
 
-    // Cart details ---
-
-    public function cartDetails(Request $request)
-    {
-        $cartItem = Cart::content();
-        // dd($cartItem);
-        return view('frontend.pages.cart-details', compact('cartItem'));
-    }
     //Increment Product quentity---
     public function updateQty(Request $request)
     {
+        $productId = Cart::get($request->rowId)->id;
+        $product = Product::findOrFail($productId);
+
+        // check product quantity
+        if ($product->qty === 0) {
+            return response(['status' => 'error', 'message' => 'Product stock out']);
+        } elseif ($product->qty < $request->quantity) {
+            return response(['status' => 'error', 'message' => 'Quantity not available in our stock']);
+        }
         // dd($request->all());
         Cart::update($request->rowId, $request->quantity);
         // Function ka call korlam--
@@ -99,7 +123,7 @@ class CartController extends Controller
     {
         // dd($rowId);
         Cart::remove($rowId);
-
+        toastr('Product removed succesfully!', 'success', 'Success');
         return redirect()->back();
     }
 

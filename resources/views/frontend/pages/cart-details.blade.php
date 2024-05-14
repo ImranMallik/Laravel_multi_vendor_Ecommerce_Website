@@ -72,12 +72,11 @@
 
 
                                             <td class="wsus__pro_tk">
-                                                <h6>
-                                                    {{ $settings->currency_icon . $items->price + $items->options->variants_total }}
-                                                </h6>
+                                                <h6>{{ $settings->currency_icon . $items->price }}</h6>
                                             </td>
                                             <td class="wsus__pro_tk">
-                                                <h6 id="{{ $items->rowId }}">{{ $settings->currency_icon . $items->price }}
+                                                <h6 id="{{ $items->rowId }}">
+                                                    {{ $settings->currency_icon . ($items->price + $items->options->variants_total) * $items->qty }}
                                                 </h6>
                                             </td>
 
@@ -116,7 +115,7 @@
                 <div class="col-xl-3">
                     <div class="wsus__cart_list_footer_button" id="sticky_sidebar">
                         <h6>total cart</h6>
-                        <p>subtotal: <span>$124.00</span></p>
+                        <p>subtotal: <span id="sub_total">{{ $settings->currency_icon }}{{ getCartTotal() }}</span></p>
                         <p>delivery: <span>$00.00</span></p>
                         <p>discount: <span>$10.00</span></p>
                         <p class="total"><span>total:</span> <span>$134.00</span></p>
@@ -173,17 +172,17 @@
                 }
             });
 
-            // {{-- Qty increment or decrement --}}
+            // {{-- Qty increment  --}}
             $('.product-increment').on('click', function() {
                 // alert('hello');
                 let input = $(this).siblings('.product-qty');
                 let quantity = parseInt(input.val()) + 1;
                 let rowId = input.data('rowid');
 
-                if (quantity > 10) {
-                    quantity = 10;
-                    toastr.warning('Maximum quantity per product is 10!');
-                }
+                // if (quantity > 10) {
+                //     quantity = 10;
+                //     toastr.warning('Maximum quantity per product is 10!');
+                // }
                 input.val(quantity);
 
                 $.ajax({
@@ -199,7 +198,10 @@
                             let totalAmount = "{{ $settings->currency_icon }}" + data
                                 .product_total;
                             $(productId).text(totalAmount);
+                            renderCartSubtotal();
                             toastr.success(data.message);
+                        } else if (data.status === 'error') {
+                            toastr.error(data.message)
                         }
                     },
                     error: function(data) {
@@ -215,7 +217,6 @@
                 let rowId = input.data('rowid');
                 if (quantity < 1) {
                     quantity = 1;
-                    toastr.warning('Minimum quantity per product is 1!');
                 }
                 input.val(quantity);
 
@@ -233,7 +234,10 @@
                             let totalAmount = "{{ $settings->currency_icon }}" + data
                                 .product_total;
                             $(productId).text(totalAmount);
+                            renderCartSubtotal();
                             toastr.success(data.message);
+                        } else if (data.status === 'error') {
+                            toastr.error(data.message)
                         }
                     },
                     error: function(data) {
@@ -276,6 +280,24 @@
                     }
                 });
             })
+
+
+            // get renderSubtotal
+
+            function renderCartSubtotal() {
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('cart.sidebar-product-total') }}",
+                    success: function(data) {
+                        $('#sub_total').text("{{ $settings->currency_icon }}" + data);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                })
+            }
+
+
         })
     </script>
 @endpush
