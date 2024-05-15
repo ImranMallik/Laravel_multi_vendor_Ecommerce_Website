@@ -81,3 +81,8 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::post('profile', [UseProfileController::class, 'passwordUpdate'])->name('password.update');
     Route::resource('address', UserAddressController::class);
 });
+
+// Coupon Route
+Route::get('apply-coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
+// CalculateDiscount of - coupon Code
+Route::get('calculate-discount-cupon', [CartController::class, 'calculateDiscount'])->name('calculate-discount-cupon');
