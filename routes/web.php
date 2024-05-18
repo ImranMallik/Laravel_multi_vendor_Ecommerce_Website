@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\CheckOutController;
+use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Frontend\CartController;
@@ -80,6 +82,12 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     //Password Update
     Route::post('profile', [UseProfileController::class, 'passwordUpdate'])->name('password.update');
     Route::resource('address', UserAddressController::class);
+    // Check Out---____
+    Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout');
+    Route::post('checkout/create-checkout', [CheckOutController::class, 'createCheckout'])->name('create.checout');
+    Route::post('checkout/form-submit', [CheckOutController::class, 'checkoutFormSubmit'])->name('checout.formsubmit');
+    // Payment 
+    Route::get('payment', [PaymentController::class, 'index'])->name('payment');
 });
 
 // Coupon Route
