@@ -54,7 +54,7 @@
               </li>
 
               <li
-                  class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.flash-sale.*', 'admin.coupons.*', 'admin.shipping-rule.*']) }}">
+                  class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.flash-sale.*', 'admin.coupons.*', 'admin.shipping-rule.*', 'admin.payment-setting.*']) }}">
                   <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                           class="fa-solid fa-cash-register"></i>
                       <span>Ecommerce</span></a>
@@ -67,6 +67,8 @@
                               href="{{ route('admin.shipping-rule.index') }}">Shipping Rule</a></li>
                       <li class="{{ setActive(['admin.vendor-profile.*']) }}"><a class="nav-link"
                               href="{{ route('admin.vendor-profile.index') }}">Vendor Profile</a></li>
+                      <li class="{{ setActive(['admin.payment-setting.*']) }}"><a class="nav-link"
+                              href="{{ route('admin.payment-setting.index') }}">Payment Setting</a></li>
 
                   </ul>
               </li>
