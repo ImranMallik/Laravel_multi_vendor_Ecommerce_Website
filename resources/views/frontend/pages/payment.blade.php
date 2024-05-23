@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-    ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -21,14 +20,7 @@
             </div>
         </div>
     </section>
-    <!--============================
-                                                                                                        BREADCRUMB END
-                                                                                                    ==============================-->
 
-
-    <!--============================
-                                                                                                        PAYMENT PAGE START
-                                                                                                    ==============================-->
     <section id="wsus__cart_view">
         <div class="container">
             <div class="wsus__pay_info_area">
@@ -103,7 +95,9 @@
                                 <div class="row">
                                     <div class="col-xl-12 m-auto">
                                         <div class="wsus__payment_area">
-                                            <button class="nav-link common_btn">Pay With Paypal</button>
+                                            <a href="{{ route('user.paypal.payment') }}"
+                                                class="nav-link common_btn text-center">Pay With Paypal</a>
+                                            {{-- <a href="" class="nav-link common_btn">Pay With Paypal</a> --}}
                                         </div>
                                     </div>
                                 </div>

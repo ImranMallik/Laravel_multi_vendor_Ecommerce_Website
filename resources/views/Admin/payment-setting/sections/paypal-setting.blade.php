@@ -7,15 +7,15 @@
                 <div class="form-group">
                     <label>Paypal Status</label>
                     <select name="status" class="form-control">
-                        <option value="1">Enable</option>
-                        <option value="0">Disable</option>
+                        <option {{ $PaypalSetting->status === 1 ? 'selected' : '' }} value="1">Enable</option>
+                        <option {{ $PaypalSetting->status === 0 ? 'selected' : '' }} value="0">Disable</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Account Mode</label>
                     <select name="mode" class="form-control">
-                        <option value="1">SandBox</option>
-                        <option value="0">Live</option>
+                        <option {{ $PaypalSetting->mode === 1 ? 'selected' : '' }} value="1">SandBox</option>
+                        <option {{ $PaypalSetting->mode === 0 ? 'selected' : '' }} value="0">Live</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -23,7 +23,8 @@
                     <select name="country" id="" class="form-control select2">
                         <option>Select</option>
                         @foreach (config('settings.country_list') as $country)
-                            <option value="{{ $country }}">{{ $country }}</option>
+                            <option {{ $country === $PaypalSetting->country ? 'selected' : '' }}
+                                value="{{ $country }}">{{ $country }}</option>
                         @endforeach
 
                     </select>
@@ -33,21 +34,25 @@
                     <select name="currency" id="" class="form-control select2">
                         <option>Select</option>
                         @foreach (config('settings.currenct_list') as $key => $currency)
-                            <option value="{{ $currency }}">{{ $key }}</option>
+                            <option {{ $currency === $PaypalSetting->currency ? 'selected' : '' }}
+                                value="{{ $currency }}">{{ $key }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Currency rate (Per USD)</label>
-                    <input type="text" class="form-control" name="currency_rate" value="">
+                    <input type="text" value="{{ $PaypalSetting->currency_rate }}" class="form-control"
+                        name="currency_rate" value="">
                 </div>
                 <div class="form-group">
                     <label>Paypal Client Id</label>
-                    <input type="text" class="form-control" name="client_id" value="">
+                    <input type="text" class="form-control" value="{{ $PaypalSetting->client_id }}" name="client_id"
+                        value="">
                 </div>
                 <div class="form-group">
                     <label>Paypal Secret Key</label>
-                    <input type="text" class="form-control" name="secret_key" value="">
+                    <input type="text" class="form-control" value="{{ $PaypalSetting->secret_key }}"
+                        name="secret_key">
                 </div>
 
 
