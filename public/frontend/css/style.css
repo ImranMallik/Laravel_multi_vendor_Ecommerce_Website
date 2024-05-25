@@ -9542,3 +9542,7 @@ a:not([href]):not([class]):hover {
   height: 70px;
   object-fit: cover;
 }
+
+#card-element {
+  padding: 18px;
+}

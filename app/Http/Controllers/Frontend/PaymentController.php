@@ -8,13 +8,15 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\PaypalSetting;
 use App\Models\Product;
+use App\Models\StripeSetting;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
-
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
@@ -95,7 +97,7 @@ class PaymentController extends Controller
     {
         $payPalSetting = PaypalSetting::first();
         $config = [
-            'mode'    => $payPalSetting->mode === 1 ? 'live' : 'sandbox', // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
+            'mode'    => $payPalSetting->mode === 1 ? 'sandbox' : 'live', // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
             'sandbox' => [
                 'client_id'         => $payPalSetting->client_id,
                 'client_secret'     => $payPalSetting->secret_key,
@@ -124,6 +126,7 @@ class PaymentController extends Controller
         $config = $this->paypalConfig();
         $payPalSetting = PaypalSetting::first();
         // dd($config);
+        // die;
         $provider = new PayPalClient($config);
         $provider->getAccessToken();
         // $provider->setApiCredentials($config);
@@ -149,6 +152,7 @@ class PaymentController extends Controller
         ]);
 
         // dd($response);
+        // die;
         if (isset($response['id']) && $response['id'] != null) {
             foreach ($response['links'] as $link) {
                 if ($link['rel'] === 'approve') {
@@ -173,7 +177,7 @@ class PaymentController extends Controller
             // 
             $payPalSetting = PaypalSetting::first();
             $total = getFinalPayableAmount();
-            $paidAmount = round($total * $payPalSetting->currency_rate, 2);
+            $paidAmount = round($total / $payPalSetting->currency_rate, 2);
             $this->storeOrder('paypal', 1, $response['id'], $paidAmount, $payPalSetting->currency);
             // 
             $this->clearSession();
@@ -187,5 +191,37 @@ class PaymentController extends Controller
     {
         toastr('Something went wrong try agin later!', 'error', 'Error');
         return redirect()->route('user.paypal.cancel');
+    }
+
+
+    // Stripe COntroller 
+
+    public function payWithStripe(Request $request)
+    {
+        // dd($request->all());
+        $stripesetting = StripeSetting::first();
+        $total = getFinalPayableAmount();
+        $paybleAmount = round($total / $stripesetting->currency_rate, 2);
+        // $paybleAmount = (int) $paybleAmount;
+        // $finalAmount = round($paybleAmount / 74, 2);
+        Stripe::setApiKey($stripesetting->secret_key);
+        $response =  Charge::create([
+            "amount" => $paybleAmount * 100,
+            "currency" => $stripesetting->currency,
+            "source" => $request->stripe_token,
+            "description" => "Product Purchase!"
+        ]);
+
+        // dd('success');
+        // dd($response);
+        if ($response->status === 'succeeded') {
+            $this->storeOrder('stripe', 1, $response->id, $paybleAmount, $stripesetting->currency);
+
+            $this->clearSession();
+            return redirect()->route('user.payment.success');
+        } else {
+            toastr('Something went worng try agin later!', 'error', 'Error');
+            return redirect()->route('user.payment');
+        }
     }
 }
