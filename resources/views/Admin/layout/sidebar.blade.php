@@ -29,6 +29,20 @@
 
                   </ul>
               </li>
+              <li class="dropdown {{ setActive(['admin.order.*', 'admin.sub-category.*', 'admin.child-category.*']) }}">
+                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                          class="fab fa-jedi-order"></i>
+                      <span>Orders</span></a>
+                  <ul class="dropdown-menu">
+                      <li class="{{ setActive(['admin.order.*']) }}"><a class="nav-link"
+                              href="{{ route('admin.order.index') }}">All Orders</a></li>
+                      <li class="{{ setActive(['admin.sub-category.*']) }}"><a class="nav-link"
+                              href="{{ route('admin.sub-category.index') }}">Sub Category</a></li>
+                      <li class="{{ setActive(['admin.child-category.*']) }}"><a class="nav-link"
+                              href="{{ route('admin.child-category.index') }}">Child Category</a></li>
+
+                  </ul>
+              </li>
 
               <li
                   class="dropdown {{ setActive(['admin.brand.*', 'admin.products.*', 'admin.seller-products.*', 'admin.seller-pending-products.*', 'admin.products-image-gallery.*', 'admin.products-variant.*', 'admin.product-variant-item.*']) }}">
