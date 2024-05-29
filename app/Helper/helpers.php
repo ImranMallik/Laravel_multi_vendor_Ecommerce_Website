@@ -102,7 +102,7 @@ function getCartDiscount()
         if ($coupon['discount_type'] === 'amount') {
             // $total = getCartTotal() - $coupon['discount_value'];
 
-            return $coupon['discount'];
+            return $coupon['discount_value'];
         } elseif ($coupon['discount_type'] === 'percent') {
             $discound = $subtotal - ($subtotal * $coupon['discount_value'] / 100);
             // $total = $subtotal - $discound;

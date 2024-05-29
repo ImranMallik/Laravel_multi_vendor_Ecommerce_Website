@@ -23,13 +23,13 @@ class OrderDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.products.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-eye'></i></a>";
+                $showBtn = "<a href='" . route('admin.order.show', $query->id) . "' class='btn btn-primary'><i class='far fa-eye'></i></a>";
                 $deleteBtn = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
                 $statusBtn = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-warning ml-2 delet-item'><i class='fas fa-truck'></i></a>";
 
 
 
-                return $editBtn . $deleteBtn . $statusBtn;
+                return $showBtn . $deleteBtn . $statusBtn;
             })
             ->addColumn('coustomer', function ($query) {
                 return $query->user->name;
@@ -43,7 +43,15 @@ class OrderDataTable extends DataTable
             ->addColumn('order_status', function ($query) {
                 return "<span class='badge bg-warning'>$query->order_status</span>";
             })
-            ->rawColumns(['order_status', 'action'])
+            ->addColumn('payment_status', function ($query) {
+                if ($query->payment_status === 1) {
+                    return "<span class='badge bg-success'>complete</span>";
+                } else {
+                    return "<span class='badge bg-danger'>pending</span>";
+                }
+            })
+
+            ->rawColumns(['order_status', 'action', 'payment_status'])
             ->setRowId('id');
     }
 
@@ -91,6 +99,7 @@ class OrderDataTable extends DataTable
             Column::make('product_qty'),
             Column::make('amount'),
             Column::make('order_status'),
+            Column::make('payment_status'),
             Column::make('payment_method'),
             Column::computed('action')
                 ->exportable(false)

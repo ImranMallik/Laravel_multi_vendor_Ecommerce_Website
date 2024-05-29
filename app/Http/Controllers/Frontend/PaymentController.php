@@ -43,7 +43,7 @@ class PaymentController extends Controller
         $order = new Order();
         $order->invocie_id = rand(1, 999999);
         $order->user_id = Auth::user()->id;
-        $order->sub_total = getMainCartTotal();
+        $order->sub_total = getCartTotal();
         $order->amount = getFinalPayableAmount();
         $order->currency_name = $setting->currency_name;
         $order->currency_icon = $setting->currency_icon;
@@ -60,7 +60,7 @@ class PaymentController extends Controller
         foreach (\Cart::content() as $item) {
             $product = Product::find($item->id);
             $orderProduct =  new OrderProduct();
-            $orderProduct->oredr_id = $order->id;
+            $orderProduct->order_id = $order->id;
             $orderProduct->produt_id = $item->id;
             $orderProduct->vendor_id = $product->vendor_id;
             $orderProduct->product_name = $product->name;
