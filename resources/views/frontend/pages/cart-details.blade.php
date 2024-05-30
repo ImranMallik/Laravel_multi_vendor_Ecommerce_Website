@@ -112,6 +112,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-3">
                     <div class="wsus__cart_list_footer_button" id="sticky_sidebar">
                         <h6>total cart</h6>

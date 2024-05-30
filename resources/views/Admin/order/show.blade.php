@@ -92,7 +92,11 @@
                                         @endphp
                                         <tr>
                                             <td>{{ ++$loop->index }}</td>
-                                            <td>{{ $item->product_name }}</td>
+                                            @if (isset($item->product->slug))
+                                                <td><a target="_blank"
+                                                        href="{{ route('product-details', $item->product->slug) }}">{{ $item->product_name }}</a>
+                                                </td>
+                                            @endif
                                             <td>
                                                 @foreach ($variants as $key => $variant)
                                                     <b>{{ $key }}:</b>{{ $variant->name }}({{ $settings->currency_icon }}{{ $variant->price }})
@@ -112,15 +116,30 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-lg-8">
-                                    {{-- <div class="section-title">Payment Method</div>
-                                    <p class="section-lead">The payment method that we provide is to make it easier for you
-                                        to pay invoices.</p>
-                                    <div class="images">
-                                        <img src="assets/img/visa.png" alt="visa">
-                                        <img src="assets/img/jcb.png" alt="jcb">
-                                        <img src="assets/img/mastercard.png" alt="mastercard">
-                                        <img src="assets/img/paypal.png" alt="paypal">
-                                    </div> --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Payment Status</label>
+                                            <select name="" data-id="{{ $order->id }}" class="form-control"
+                                                id="payment_status">
+                                                <option {{ $order->payment_status === 0 ? 'Selected' : '' }}
+                                                    value="0">Pending</option>
+                                                <option {{ $order->payment_status === 1 ? 'Selected' : '' }}
+                                                    value="1">Completed</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Order Status:</label>
+                                            <select data-id="{{ $order->id }}" name="order_status" class="form-control"
+                                                id="order_status">
+                                                @foreach (config('order_status.order_status_admin') as $key => $orderStatus)
+                                                    <option {{ $order->order_status === $key ? 'Selected' : '' }}
+                                                        value="{{ $key }}">{{ $orderStatus['status'] }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-lg-4 text-right">
                                     <div class="invoice-detail-item">
@@ -164,15 +183,78 @@
                 <hr>
                 <div class="text-md-right">
                     <div class="float-lg-left mb-lg-0 mb-3">
-                        <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process
-                            Payment</button>
-                        <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
+                        {{-- <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process
+                            Payment</button> --}}
+                        <a href="{{ route('admin.order.index') }}" class="btn btn-danger btn-icon icon-left"><i
+                                class="fas fa-times"></i> Cancel</a>
+
                     </div>
-                    <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
+                    <button class="btn btn-warning btn-icon icon-left print_invoice  "><i class="fas fa-print"></i>
+                        Print</button>
                 </div>
             </div>
         </div>
     </section>
 @endsection
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#order_status').on('change', function() {
+                let status_val = $(this).val();
+                let id = $(this).data('id');
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('admin.order-status.change') }}",
+                    data: {
+                        status: status_val,
+                        id: id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        if (data.status === 'success') {
+                            toastr.success(data.message)
+                        }
+                    },
+                });
+            });
+            // Payment_Status Change Ajax
+            $('#payment_status').on('change', function() {
+                let status_val = $(this).val();
+                let id = $(this).data('id');
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('admin.payment-status.change') }}",
+                    data: {
+                        status: status_val,
+                        id: id
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        if (data.status === 'success') {
+                            toastr.success(data.message)
+                        }
+                    },
+                });
+            });
+
+
+            // Print Order page
+
+            $('.print_invoice').on('click', function() {
+                // alert('hi');
+                let printBody = $('.invoice-print');
+                let originalContent = $('body').html();
+
+                $('body').html(printBody.html());
+                window.print();
+                $('body').html(originalContent);
+            })
+        });
+    </script>
 @endpush

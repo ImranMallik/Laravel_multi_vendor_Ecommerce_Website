@@ -61,7 +61,7 @@ class PaymentController extends Controller
             $product = Product::find($item->id);
             $orderProduct =  new OrderProduct();
             $orderProduct->order_id = $order->id;
-            $orderProduct->produt_id = $item->id;
+            $orderProduct->product_id = $item->id;
             $orderProduct->vendor_id = $product->vendor_id;
             $orderProduct->product_name = $product->name;
             $orderProduct->variants = json_encode($item->options->variants);

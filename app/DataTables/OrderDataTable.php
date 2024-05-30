@@ -41,13 +41,39 @@ class OrderDataTable extends DataTable
                 return date('d-M-Y', strtotime($query->created_at));
             })
             ->addColumn('order_status', function ($query) {
-                return "<span class='badge bg-warning'>$query->order_status</span>";
+                switch ($query->order_status) {
+                    case 'pending':
+                        return "<span class='badge bg-warning'>pending</span>";
+                        break;
+                    case 'processed_and_ready_to_ship':
+                        return "<span class='badge bg-info'>processed</span>";
+                        break;
+                    case 'dropped_off':
+                        return "<span class='badge bg-info'>dropped off</span>";
+                        break;
+                    case 'shipped':
+                        return "<span class='badge bg-info'>shipped</span>";
+                        break;
+                    case 'out_of_delivery':
+                        return "<span class='badge bg-primary'>out of delivery</span>";
+                        break;
+                    case 'delivered':
+                        return "<span class='badge bg-success'>delivered</span>";
+                        break;
+                    case 'canceled':
+                        return "<span class='badge bg-danger'>canceled</span>";
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
             })
             ->addColumn('payment_status', function ($query) {
                 if ($query->payment_status === 1) {
                     return "<span class='badge bg-success'>complete</span>";
                 } else {
-                    return "<span class='badge bg-danger'>pending</span>";
+                    return "<span class='badge bg-warning'>pending</span>";
                 }
             })
 

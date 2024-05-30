@@ -115,6 +115,8 @@ function getCartDiscount()
 }
 
 
+
+
 //Get shipping fee
 
 function getShippingFee()
