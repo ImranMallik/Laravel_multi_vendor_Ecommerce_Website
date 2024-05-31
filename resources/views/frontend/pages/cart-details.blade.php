@@ -334,10 +334,10 @@
                     url: "{{ route('calculate-discount-cupon') }}",
                     success: function(data) {
                         // $('#sub_total').text("{{ $settings->currency_icon }}" + data);
-                        // console.log(data);
+                        console.log(data);
                         if (data.status === 'success') {
 
-                            $('#cart_discount').text('{{ $settings->currency_icon }}' + data.discound);
+                            $('#cart_discount').text('{{ $settings->currency_icon }}' + data.discount);
                             $('#cart_sub_total').text('{{ $settings->currency_icon }}' + data
                                 .cart_total);
                         }

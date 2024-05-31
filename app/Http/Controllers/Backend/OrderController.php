@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DataTables\CanceledOrderDataTable;
+use App\DataTables\DeliveredOrderDataTable;
+use App\DataTables\droppedOrderDataTable;
 use App\DataTables\OrderDataTable;
+use App\DataTables\OutOfDeliveredOrderDataTable;
+use App\DataTables\PendingOrderDataTable;
+use App\DataTables\ProcessedOrderDataTable;
+use App\DataTables\ShippedOrderDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -33,6 +40,8 @@ class OrderController extends Controller
     {
         //
     }
+
+
 
     /**
      * Display the specified resource.
@@ -88,5 +97,48 @@ class OrderController extends Controller
         $order->save();
 
         return response(['status' => 'success', 'message' => 'Update Payment status']);
+    }
+
+    // show panding Order
+    public function pendingOrders(PendingOrderDataTable $dataTable)
+    {
+        return $dataTable->render('Admin.order.pending');
+    }
+
+    // Processed Order
+
+    public function processedOrders(ProcessedOrderDataTable $dataTable)
+    {
+        return $dataTable->render('Admin.order.processed');
+    }
+
+    //Dropped Order
+    public function droppedOrders(droppedOrderDataTable $dataTable)
+    {
+        return $dataTable->render('Admin.order.dropped-off');
+    }
+    // Shipped Order
+
+    public function shippedOrders(ShippedOrderDataTable $dataTable)
+    {
+        return $dataTable->render('Admin.order.shipped');
+    }
+    // out of Delivery
+    public function outOfDeliveryOrders(OutOfDeliveredOrderDataTable $dataTable)
+    {
+
+        return $dataTable->render('Admin.order.outofdelivery');
+    }
+    // Delivered order
+
+    public function deliveredOrders(DeliveredOrderDataTable $dataTable)
+    {
+        return $dataTable->render('Admin.order.delivered');
+    }
+    // Cancled order
+    public function canceledOrders(CanceledOrderDataTable $dataTable)
+    {
+
+        return $dataTable->render('Admin.order.cancel');
     }
 }

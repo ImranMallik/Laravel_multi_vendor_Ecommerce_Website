@@ -112,6 +112,13 @@ Route::resource('shipping-rule', ShippingRuleController::class);
 // Order Manage
 Route::get('order/status', [OrderController::class, 'orderStatusChange'])->name('order-status.change');
 Route::get('payment/status', [OrderController::class, 'paymentStatusChange'])->name('payment-status.change');
+Route::get('pending-orders', [OrderController::class, 'pendingOrders'])->name('pending-orders');
+Route::get('processed-orders', [OrderController::class, 'processedOrders'])->name('processed-orders');
+Route::get('dropped-orders', [OrderController::class, 'droppedOrders'])->name('dropped-orders');
+Route::get('shipped-orders', [OrderController::class, 'shippedOrders'])->name('shipped-orders');
+Route::get('out-of-delivery-orders', [OrderController::class, 'outOfDeliveryOrders'])->name('outofdelivery-orders');
+Route::get('delivered-orders', [OrderController::class, 'deliveredOrders'])->name('delivered-orders');
+Route::get('canceled-orders', [OrderController::class, 'canceledOrders'])->name('canceled-orders');
 Route::resource('order', OrderController::class);
 
 // Genaral Setting-----

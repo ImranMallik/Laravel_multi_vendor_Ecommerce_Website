@@ -163,7 +163,7 @@
                                             <div class="invoice-detail-value">
                                                 {{ @$coupon->discount_value ? @$coupon->discount_value . '%' : '0%' }}({{ $final_dis }})
                                             </div>
-                                        @else
+                                        @elseif($coupon->discount_type === 'amount')
                                             <div class="invoice-detail-value">
                                                 {{ $settings->currency_icon }}{{ @$coupon->discount_value ? @$coupon->discount_value : 0 }}
                                             </div>
