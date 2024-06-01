@@ -1,7 +1,7 @@
   <div class="main-sidebar sidebar-style-2">
       <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-              <a href="index.html">Imran</a>
+              <a href="{{ route('admin.dashboard') }}">Imran</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
               <a href="index.html">St</a>
@@ -55,6 +55,11 @@
                   </ul>
               </li>
 
+              <li class="{{ setActive(['admin.transaction']) }}"> <a href="{{ route('admin.transaction') }}"
+                      class="nav-link"><i class="fas fa-exchange-alt"></i>
+                      <span>Transactions</span></a>
+              </li>
+
               <li
                   class="dropdown {{ setActive(['admin.brand.*', 'admin.products.*', 'admin.seller-products.*', 'admin.seller-pending-products.*', 'admin.products-image-gallery.*', 'admin.products-variant.*', 'admin.product-variant-item.*']) }}">
                   <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
@@ -98,7 +103,8 @@
                   </ul>
               </li>
               <li class="dropdown {{ setActive(['admin.slider.*']) }}">
-                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                          class="fas fa-columns"></i>
                       <span>Manage Website</span></a>
                   <ul class="dropdown-menu">
                       <li class="{{ setActive(['admin.slider.*']) }}"><a class="nav-link"

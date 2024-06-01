@@ -26,11 +26,11 @@ class OutOfDeliveredOrderDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $showBtn = "<a href='" . route('admin.order.show', $query->id) . "' class='btn btn-primary'><i class='far fa-eye'></i></a>";
                 $deleteBtn = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
-                $statusBtn = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-warning ml-2 delet-item'><i class='fas fa-truck'></i></a>";
 
 
 
-                return $showBtn . $deleteBtn . $statusBtn;
+
+                return $showBtn . $deleteBtn;
             })
             ->addColumn('coustomer', function ($query) {
                 return $query->user->name;

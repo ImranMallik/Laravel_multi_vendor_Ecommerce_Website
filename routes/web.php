@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UseProfileController;
 use App\Http\Controllers\Frontend\UserAddressController;
+use App\Http\Controllers\Frontend\UserOrderController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -75,6 +76,9 @@ Route::get('cart/sidebar-product-total', [CartController::class, 'sidebarProduct
 //Use Dashboard---
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {
+    // Order route
+    Route::get('orders', [UserOrderController::class, 'index'])->name('orders');
+    Route::get('orders/show/{id}', [UserOrderController::class, 'show'])->name('orders.show');
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboadr');
     //User Profile
     Route::get('profile', [UseProfileController::class, 'index'])->name('profile');
