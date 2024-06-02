@@ -1,5 +1,7 @@
 @php
     $address = json_decode($order->order_address);
+    $shipping = json_decode($order->shipping_method);
+    $coupon = json_decode($order->coupon);
 @endphp
 @extends('vendor.layouts.master')
 @section('title')
@@ -83,36 +85,34 @@
                                                             </th>
                                                         </tr>
                                                         @foreach ($order->OrderProduct as $product)
-                                                            @if ($product->vendor_id === Auth::user()->vendorprofile->id)
-                                                                @php
-                                                                    $variants = json_decode($product->variants);
-                                                                @endphp
-                                                                <tr>
-                                                                    <td class="name">
-                                                                        <p>{{ $product->product_name }}</p>
-                                                                        @foreach ($variants as $key => $item)
-                                                                            <span>{{ $key }} :
-                                                                                {{ $item->name }}({{ $settings->currency_icon }}{{ $item->price }})
-                                                                            </span>
-                                                                        @endforeach
-                                                                    </td>
-                                                                    <td class="vendor">
-                                                                        {{ $product->vendor->shope_name }}
-                                                                    </td>
-                                                                    <td class="amount">
-                                                                        {{ $settings->currency_icon }}
-                                                                        {{ $product->unit_price }}
-                                                                    </td>
+                                                            @php
+                                                                $variants = json_decode($product->variants);
+                                                            @endphp
+                                                            <tr>
+                                                                <td class="name">
+                                                                    <p>{{ $product->product_name }}</p>
+                                                                    @foreach ($variants as $key => $item)
+                                                                        <span>{{ $key }} :
+                                                                            {{ $item->name }}({{ $settings->currency_icon }}{{ $item->price }})
+                                                                        </span>
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="vendor">
+                                                                    {{ $product->vendor->shope_name }}
+                                                                </td>
+                                                                <td class="amount">
+                                                                    {{ $settings->currency_icon }}
+                                                                    {{ $product->unit_price }}
+                                                                </td>
 
-                                                                    <td class="quentity">
-                                                                        {{ $product->qty }}
-                                                                    </td>
-                                                                    <td class="total">
-                                                                        {{ $settings->currency_icon }}
-                                                                        {{ $product->qty * $product->unit_price }}
-                                                                    </td>
-                                                                </tr>
-                                                            @endif
+                                                                <td class="quentity">
+                                                                    {{ $product->qty }}
+                                                                </td>
+                                                                <td class="total">
+                                                                    {{ $settings->currency_icon }}
+                                                                    {{ $product->qty * $product->unit_price }}
+                                                                </td>
+                                                            </tr>
                                                         @endforeach
 
                                                     </table>
@@ -120,33 +120,26 @@
                                             </div>
                                         </div>
                                         <div class="wsus__invoice_footer">
-                                            <p><span>Total Amount:</span>{{ $settings->currency_icon }}
-                                                {{ $product->qty * $product->unit_price }} </p>
+                                            <p><span>Sub Total:</span>{{ $settings->currency_icon }}
+                                                {{ $order->sub_total }} </p>
+                                            <p><span>Shipping
+                                                    Fee(+):</span>{{ $settings->currency_icon }}{{ $shipping->cost }}</p>
+                                            @if (isset($coupon) && in_array($coupon->discount_type, ['percent', 'amount']))
+                                                @if ($coupon->discount_type === 'percent')
+                                                    <p><span>Coupon(-):</span>{{ $coupon->discount_value }}%</p>
+                                                @elseif ($coupon->discount_type === 'amount')
+                                                    <p><span>Coupon(-):</span>{{ $settings->currency_icon }}
+                                                        {{ $coupon->discount_value }}</p>
+                                                @endif
+                                            @endif
+                                            <p><span>Total
+                                                    Amount</span>{{ $settings->currency_icon }}{{ $order->amount }}</p>
                                         </div>
                                     </div>
                                 </div>
                             </section>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <form action="">
-                                        <div class="form-group mt-5">
-                                            <label for="">Order Status:</label>
-                                            <select data-id="{{ $order->id }}" name="order_status" id="order_status"
-                                                class="form-control">
-                                                @foreach (config('order_status.order_status_vendor') as $key => $status)
-                                                    <option {{ $key === $order->order_status ? 'Selected' : '' }}
-                                                        value="{{ $key }}">
-                                                        {{ $status['status'] }}</option>
-                                                @endforeach
-                                            </select>
-                                            <button type="submit" class="btn btn-primary mt-3">Save</button>
-                                        </div>
-
-                                    </form>
-
-                                </div>
-
-                                <div class="col-md-8">
+                                <div class="col-md-12">
                                     <div class="mt-5 float-end">
                                         <button class="btn btn-warning btn-icon icon-left print_invoice  "><i
                                                 class="fas fa-print"></i>
@@ -167,46 +160,16 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        // Print Order page
 
-            $('#order_status').on('change', function() {
-                let status_val = $(this).val();
-                let id = $(this).data('id');
-                // alert(id)
-                $.ajax({
-                    method: 'GET',
-                    url: "{{ route('vendor.orders.status-change') }}",
-                    data: {
-                        status: status_val,
-                        id: id
-                    },
-                    success: function(data) {
-                        // console.log(data);
-                        if (data.status === 'success') {
-                            toastr.success(data.message)
-                        }
-                    },
-                });
-            });
+        $('.print_invoice').on('click', function() {
+            // alert('hi');
+            let printBody = $('.invoice-print');
+            let originalContent = $('body').html();
 
-
-
-            // Print Order page
-
-            $('.print_invoice').on('click', function() {
-                // alert('hi');
-                let printBody = $('.invoice-print');
-                let originalContent = $('body').html();
-
-                $('body').html(printBody.html());
-                window.print();
-                $('body').html(originalContent);
-            })
-        });
+            $('body').html(printBody.html());
+            window.print();
+            $('body').html(originalContent);
+        })
     </script>
 @endpush

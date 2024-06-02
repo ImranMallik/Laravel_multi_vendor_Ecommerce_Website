@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\FlashSaleController;
 use App\Http\Controllers\Backend\GenaralSettingController;
+use App\Http\Controllers\Backend\HomePageSettingController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaumentSettingController;
 use App\Http\Controllers\Backend\PaypalSettingController;
@@ -134,3 +135,7 @@ Route::put('grnaral-setting-update', [GenaralSettingController::class, 'genaralS
 Route::get('payment-setting', [PaumentSettingController::class, 'index'])->name('payment-setting.index');
 Route::resource('paypal-setting', PaypalSettingController::class);
 Route::Put('stripe-setting/{id}', [StripeSettingController::class, 'update'])->name('stripe-setting.update');
+
+// Home Page Setting Route
+Route::get('home-page-setting', [HomePageSettingController::class, 'index'])->name('home-page-setting');
+Route::put('popular-category-section', [HomePageSettingController::class, 'updatePopularCategorySection'])->name('popular-category-section');
