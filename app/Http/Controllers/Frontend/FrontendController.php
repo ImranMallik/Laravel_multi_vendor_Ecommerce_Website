@@ -22,8 +22,10 @@ class FrontendController extends Controller
         $brands = Brand::where('status', 1)->where('is_featured', 1)->get();
         // dd($this->getTypeBaseProduct());
         $typeBaseProducts = $this->getTypeBaseProduct();
+        $categoryProductsSliderSectionOne = HomePageSetting::where('key', 'product_slider_section_one')->first();
+        $categoryProductsSliderSectionTwo = HomePageSetting::where('key', 'product_slider_section_two')->first();
 
-        return view('frontend.home.dashboard', compact('sliders', 'flashSaleDate', 'flashSaleItem', 'popularCategory', 'brands', 'typeBaseProducts'));
+        return view('frontend.home.dashboard', compact('sliders', 'flashSaleDate', 'flashSaleItem', 'popularCategory', 'brands', 'typeBaseProducts', 'categoryProductsSliderSectionOne', 'categoryProductsSliderSectionTwo'));
     }
 
 

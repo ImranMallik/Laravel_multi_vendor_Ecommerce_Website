@@ -15,12 +15,29 @@ class HomePageSettingController extends Controller
     {
         $categories = Category::where('status', 1)->get();
         $popularCategorySection = HomePageSetting::where('key', 'popular_category_section')->first();
-        return view('Admin.home-page-setting.index', compact('categories', 'popularCategorySection'));
+        $productSliderSectionOne = HomePageSetting::where('key', 'product_slider_section_one')->first();
+        $productSliderSectionTwo = HomePageSetting::where('key', 'product_slider_section_two')->first();
+        return view('Admin.home-page-setting.index', compact('categories', 'popularCategorySection', 'productSliderSectionOne', 'productSliderSectionTwo'));
     }
 
     public function updatePopularCategorySection(Request $request)
     {
         // dd($request->all());
+        $request->validate(
+            [
+                'cat_one' => ['required'],
+                'cat_two' => ['required'],
+                'cat_three' => ['required'],
+                'cat_four' => ['required']
+            ],
+            [
+                'cat_one.required' => 'Category one filed is required',
+                'cat_two.required' => 'Category two filed is required',
+                'cat_three.required' => 'Category three filed is required',
+                'cat_four.required' => 'Category four filed is required',
+            ]
+        );
+
         $data = [
             [
                 'category' => $request->cat_one,
@@ -49,6 +66,77 @@ class HomePageSettingController extends Controller
         HomePageSetting::updateOrCreate(
             [
                 'key' => 'popular_category_section'
+            ],
+            [
+                'value' => json_encode($data)
+            ]
+        );
+
+        toastr('Updated successfully!', 'success', 'success');
+
+        return redirect()->back();
+    }
+
+
+    // Product-Slider-Section-One
+
+    public function updateProductSliderSectionOne(Request $request)
+    {
+
+        $request->validate([
+            'cat_one' => ['required']
+        ], [
+            'cat_one.required' => 'Category one filed is required'
+        ]);
+
+        $data = [
+
+            'category' => $request->cat_one,
+            'sub_category' => $request->sub_cat_one,
+            'child_category' => $request->child_cat_one
+
+
+        ];
+
+        // dd($data);
+
+        HomePageSetting::updateOrCreate(
+            [
+                'key' => 'product_slider_section_one'
+            ],
+            [
+                'value' => json_encode($data)
+            ]
+        );
+
+        toastr('Updated successfully!', 'success', 'success');
+
+        return redirect()->back();
+    }
+
+
+    public function updateProductSliderSectionTwo(Request $request)
+    {
+        $request->validate([
+            'cat_one' => ['required']
+        ], [
+            'cat_one.required' => 'Category one filed is required'
+        ]);
+
+        $data = [
+
+            'category' => $request->cat_one,
+            'sub_category' => $request->sub_cat_one,
+            'child_category' => $request->child_cat_one
+
+
+        ];
+
+        // dd($data);
+
+        HomePageSetting::updateOrCreate(
+            [
+                'key' => 'product_slider_section_two'
             ],
             [
                 'value' => json_encode($data)

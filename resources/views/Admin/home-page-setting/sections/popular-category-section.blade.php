@@ -4,7 +4,7 @@
 @endphp
 
 
-<div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+<div class="tab-pane fade show active" id="list-profile" role="tabpanel" aria-labelledby="list-home-list">
     <div class="card border">
         <div class="card-body">
             <form action="{{ route('admin.popular-category-section') }}" method="POST">
@@ -152,7 +152,7 @@
                                 <option value="">Select</option>
                                 @foreach ($subCategories as $subcategory)
                                     <option
-                                        {{ $subcategory->id == $popularCategorySection[1]->sub_category ? 'Selected' : '' }}
+                                        {{ $subcategory->id == $popularCategorySection[2]->sub_category ? 'Selected' : '' }}
                                         value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
                                 @endforeach
                             </select>
@@ -172,7 +172,7 @@
                                 <option value="">Select</option>
                                 @foreach ($childCategories as $childCategory)
                                     <option
-                                        {{ $childCategory->id == $popularCategorySection[1]->child_category ? 'Selected' : '' }}
+                                        {{ $childCategory->id == $popularCategorySection[2]->child_category ? 'Selected' : '' }}
                                         value="{{ $childCategory->id }}">{{ $childCategory->name }}</option>
                                 @endforeach
                             </select>
@@ -206,10 +206,10 @@
                             @endphp
                             <select name="sub_cat_four" class="form-control sub-category">
                                 <option value="">Select</option>
-                                @foreach ($categories as $category)
+                                @foreach ($subCategories as $subcategory)
                                     <option
-                                        {{ $category->id == $popularCategorySection[3]->category ? 'Selected' : '' }}
-                                        value="{{ $category->id }}">{{ $category->name }}</option>
+                                        {{ $subcategory->id == $popularCategorySection[3]->sub_category ? 'Selected' : '' }}
+                                        value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
                                 @endforeach
                             </select>
                         </div>
