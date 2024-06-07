@@ -26,10 +26,10 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery.classycountdown.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/venobox.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
     {{-- Toster Css --}}
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
@@ -58,6 +58,16 @@
 
     @yield('content')
 
+
+    <section class="product_popup_modal">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content product-modal-content">
+
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <!--============================
@@ -117,6 +127,7 @@
 
 
     <!--main/custom js-->
+    {{-- <script src="{{ asset('frontend/js/main.js') }}"></script> --}}
 
     {{-- Toster Script --}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -126,7 +137,11 @@
 
     <script src="{{ asset('frontend/js/simplyCountdown.js') }}"></script>
 
+
+    <!--main/custom js-->
+
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+
     <script>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
