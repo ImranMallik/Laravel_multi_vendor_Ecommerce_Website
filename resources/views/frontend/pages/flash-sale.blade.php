@@ -75,7 +75,7 @@
                                     <span
                                         class="wsus__minus">-{{ calculateDiscountPercent($product->price, $product->offer_price) }}%</span>
                                 @endif
-                                <a class="wsus__pro_link" href="product_details.html">
+                                <a class="wsus__pro_link" href="{{ route('product-details', $product->slug) }}">
                                     <img src="{{ asset($product->thumb_image) }}" alt="product"
                                         class="img-fluid w-100 img_1" />
                                     <img src="@if (isset($product->productImageGallery[0]->image)) {{ asset($product->productImageGallery[0]->image) }}
@@ -136,7 +136,7 @@
                     @endforeach
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-5">
                     @if ($flashSaleItem->hasPages())
                         {{ $flashSaleItem->links() }}
                     @endif
@@ -147,8 +147,8 @@
         </div>
     </section>
     <!--==========================
-                                      PRODUCT MODAL VIEW START
-            ===========================-->
+                                                                          PRODUCT MODAL VIEW START
+                                                ===========================-->
     @foreach ($flashSaleItem as $items)
         @php
             $product = \App\Models\Product::find($items->product_id);
@@ -276,8 +276,8 @@
         </section>
     @endforeach
     <!--==========================
-                              PRODUCT MODAL VIEW END
-            ===========================-->
+                                                                  PRODUCT MODAL VIEW END
+                                                ===========================-->
 @endsection
 
 

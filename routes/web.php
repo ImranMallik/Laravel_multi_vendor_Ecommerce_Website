@@ -28,12 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('frontend.home.dashboard');
-// });
-// Route::get('/dashboard', function () {
-//     return view('frontend.dashboard.dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::get('/', [FrontendController::class, 'index'])->name('user.index');
 Route::middleware('auth')->group(function () {
@@ -108,3 +103,5 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
 Route::get('apply-coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
 // CalculateDiscount of - coupon Code
 Route::get('calculate-discount-cupon', [CartController::class, 'calculateDiscount'])->name('calculate-discount-cupon');
+Route::get('products', [ProductDetailsController::class, 'productIndex'])->name('product.index');
+Route::get('change-product-list-view', [ProductDetailsController::class, 'changeListView'])->name('product-list-view');

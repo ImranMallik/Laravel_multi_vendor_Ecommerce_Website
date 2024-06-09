@@ -22,16 +22,20 @@
                         <ul class="wsus_menu_cat_item show_home toggle_menu">
                             {{-- <li><a href="#"><i class="fas fa-star"></i> hot promotions</a></li> --}}
                             @foreach ($category as $item)
-                                <li><a class="wsus__droap_arrow" href="#"><i class="{{ $item->icon }}"></i>
+                                <li><a class="wsus__droap_arrow"
+                                        href="{{ route('product.index', ['category' => $item->slug]) }}"><i
+                                            class="{{ $item->icon }}"></i>
                                         {{ $item->name }} </a>
                                     <ul class="wsus_menu_cat_droapdown">
                                         @foreach ($item->SubCategory as $sub)
-                                            <li><a href="#">{{ $sub->name }}<i
+                                            <li><a href="{{ route('product.index', ['subcategory' => $sub->slug]) }}">{{ $sub->name }}<i
                                                         class="{{ count($sub->ChildCategory) > 0 ? 'fas fa-angle-right' : '' }}"></i></a>
                                                 @if (count($sub->ChildCategory))
                                                     <ul class="wsus__sub_category">
                                                         @foreach ($sub->ChildCategory as $child)
-                                                            <li><a href="#">{{ $child->name }}</a> </li>
+                                                            <li><a
+                                                                    href="{{ route('product.index', ['childcategory' => $child->slug]) }}">{{ $child->name }}</a>
+                                                            </li>
                                                         @endforeach
 
                                                     </ul>

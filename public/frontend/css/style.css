@@ -9546,3 +9546,23 @@ a:not([href]):not([class]):hover {
 #card-element {
   padding: 18px;
 }
+
+.add_cart_two {
+  position: static;
+  padding: 0px 19px;
+  font-size: 16px;
+  border-radius: 5px;
+  width: auto;
+  height: 40px;
+  color: #fff;
+  border: 1px solid #08c;
+  background: #08c;
+  margin-right: 10px;
+}
+.add_cart_two:hover {
+  border: 1px solid #08c;
+  background: #fff;
+  color: #08c;
+
+  /* margin-right: 10px; */
+}

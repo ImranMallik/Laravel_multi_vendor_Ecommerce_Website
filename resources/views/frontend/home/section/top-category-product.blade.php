@@ -61,8 +61,8 @@
                                          ->orderBy('id', 'DESC')
                                          ->take(12)
                                          ->get();
+                                     // dd($products);
                                  }
-                                 //  dd($category);
                              @endphp
                              <button class="{{ $loop->index === 0 ? 'auto_click active' : '' }}"
                                  data-filter=".category-{{ $loop->index }}">{{ $category->name }}</button>
@@ -94,12 +94,10 @@
                                          </p>
                                          @if (checkDiscount($item))
                                              <p class="wsus__tk">{{ $settings->currency_icon }}{{ $item->offer_price }}
-                                                 <del>{{ $settings->currency_icon }}{{ $item->price }} </del>
+                                                 <del>{{ $settings->currency_icon }}{{ $item->price }}</del>
                                              </p>
                                          @else
-                                             <p class="wsus__tk">{{ $settings->currency_icon }}{{ $item->offer_price }}
-
-                                             </p>
+                                             <p class="wsus__tk">{{ $settings->currency_icon }}{{ $item->price }}</p>
                                          @endif
                                      </div>
                                  </a>

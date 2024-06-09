@@ -1,6 +1,6 @@
  @php
      $productSliderSectionThree = json_decode($productSliderSectionThree->value, true);
-     //  dd($productSliderSectionThree);
+     //   dd($productSliderSectionThree);
  @endphp
 
  <section id="wsus__weekly_best" class="home2_wsus__weekly_best_2 ">
@@ -19,25 +19,25 @@
                      }
 
                      if (array_keys($lastkey)[0] === 'category') {
-                         // Call ChildCategory Model
+                         //   Call ChildCategory Model
                          $category = \App\Models\Category::find($lastkey['category']);
                          $products = \App\Models\Product::where('category_id', $category->id)
                              ->orderBy('id', 'DESC')
-                             ->take(6)
+                             ->take(3)
                              ->get();
                      } elseif (array_keys($lastkey)[0] === 'sub_category') {
                          // Call SubCategory Model
                          $category = \App\Models\SubCategory::find($lastkey['sub_category']);
                          $products = \App\Models\Product::where('sub_category_id', $category->id)
                              ->orderBy('id', 'DESC')
-                             ->take(6)
+                             ->take(3)
                              ->get();
                      } else {
                          // Call Child Category Model
                          $category = \App\Models\ChildCategory::find($lastkey['child_category']);
                          $products = \App\Models\Product::where('child_category_id', $category->id)
                              ->orderBy('id', 'DESC')
-                             ->take(6)
+                             ->take(3)
                              ->get();
                      }
                      //  dd($category);
@@ -63,16 +63,15 @@
                                              <i class="fas fa-star"></i>
                                              <i class="fas fa-star-half-alt"></i>
                                          </p>
+
+
                                          @if (checkDiscount($product))
                                              <p class="wsus__tk">
                                                  {{ $settings->currency_icon }}{{ $product->offer_price }}
-                                                 <del>{{ $settings->currency_icon }}{{ $product->price }} </del>
+                                                 <del>{{ $settings->currency_icon }}{{ $product->price }}</del>
                                              </p>
                                          @else
-                                             <p class="wsus__tk">
-                                                 {{ $settings->currency_icon }}{{ $product->offer_price }}
-
-                                             </p>
+                                             <p class="wsus__tk">{{ $settings->currency_icon }}{{ $product->price }}</p>
                                          @endif
                                      </div>
                                  </a>
